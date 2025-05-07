@@ -88,19 +88,19 @@ public class Project {
         this.projectManager = projectManager;
     }
 
-    public Fom getFieldOperationsManager() {
+    public Fom getFom() {
         return fom;
     }
 
-    public void setFieldOperationsManager(Fom fom) {
+    public void setFom(Fom fom) {
         this.fom = fom;
     }
 
-    public ImpEngineer getImplementationEngineer() {
+    public ImpEngineer getImpEngineer() {
         return impEngineer;
     }
 
-    public void setImplementationEngineer(ImpEngineer impEngineer) {
+    public void setImpEngineer(ImpEngineer impEngineer) {
         this.impEngineer = impEngineer;
     }
 

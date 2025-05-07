@@ -13,10 +13,11 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class ProjectService implements IProjectService{
+public class ProjectService implements IProjectService {
 
     @Autowired
     private IProjectRepository projectRepository;
+
     @Autowired
     ObjectMapper mapper;
 
