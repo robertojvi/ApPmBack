@@ -22,6 +22,16 @@ public class ProjectDTO {
     private Integer numberOfAccessPoints;
     private Boolean headendInstallation;
 
+    private double percentageComplete;
+    private Integer numberOfDaysCompleted;
+    private Integer numberOfPolesCompleted;
+    private Integer numberOfVaultsCompleted;
+    private Integer numberOfFiberSplicesCompleted;
+    private Integer feetTrenchingCompleted;
+    private Integer feetConduitCompleted;
+    private Integer feetFiberCompleted;
+    private Integer numberOfAccessPointsCompleted;
+
     public Long getId() {
         return id;
     }
@@ -180,5 +190,77 @@ public class ProjectDTO {
 
     public void setHeadendInstallation(Boolean headendInstallation) {
         this.headendInstallation = headendInstallation;
+    }
+
+    public double getPercentageComplete() {
+        return percentageComplete;
+    }
+
+    public void setPercentageComplete(double percentageComplete) {
+        this.percentageComplete = percentageComplete;
+    }
+
+    public Integer getNumberOfDaysCompleted() {
+        return numberOfDaysCompleted;
+    }
+
+    public void setNumberOfDaysCompleted(Integer numberOfDaysCompleted) {
+        this.numberOfDaysCompleted = numberOfDaysCompleted;
+    }
+
+    public Integer getNumberOfPolesCompleted() {
+        return numberOfPolesCompleted;
+    }
+
+    public void setNumberOfPolesCompleted(Integer numberOfPolesCompleted) {
+        this.numberOfPolesCompleted = numberOfPolesCompleted;
+    }
+
+    public Integer getNumberOfVaultsCompleted() {
+        return numberOfVaultsCompleted;
+    }
+
+    public void setNumberOfVaultsCompleted(Integer numberOfVaultsCompleted) {
+        this.numberOfVaultsCompleted = numberOfVaultsCompleted;
+    }
+
+    public Integer getNumberOfFiberSplicesCompleted() {
+        return numberOfFiberSplicesCompleted;
+    }
+
+    public void setNumberOfFiberSplicesCompleted(Integer numberOfFiberSplicesCompleted) {
+        this.numberOfFiberSplicesCompleted = numberOfFiberSplicesCompleted;
+    }
+
+    public Integer getFeetTrenchingCompleted() {
+        return feetTrenchingCompleted;
+    }
+
+    public void setFeetTrenchingCompleted(Integer feetTrenchingCompleted) {
+        this.feetTrenchingCompleted = feetTrenchingCompleted;
+    }
+
+    public Integer getFeetConduitCompleted() {
+        return feetConduitCompleted;
+    }
+
+    public void setFeetConduitCompleted(Integer feetConduitCompleted) {
+        this.feetConduitCompleted = feetConduitCompleted;
+    }
+
+    public Integer getFeetFiberCompleted() {
+        return feetFiberCompleted;
+    }
+
+    public void setFeetFiberCompleted(Integer feetFiberCompleted) {
+        this.feetFiberCompleted = feetFiberCompleted;
+    }
+
+    public Integer getNumberOfAccessPointsCompleted() {
+        return numberOfAccessPointsCompleted;
+    }
+
+    public void setNumberOfAccessPointsCompleted(Integer numberOfAccessPointsCompleted) {
+        this.numberOfAccessPointsCompleted = numberOfAccessPointsCompleted;
     }
 }
