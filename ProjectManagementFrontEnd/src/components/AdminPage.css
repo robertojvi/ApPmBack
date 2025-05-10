@@ -19,3 +19,51 @@
         width: 100vw;
     }
 }
+
+.admin-page {
+    display: flex;
+    height: 100vh;
+    background-color: lightgray;
+}
+
+.admin-navbar {
+    width: 40%;
+    background-color: #444;
+    /* Dark gray color */
+    color: white;
+    padding: 1rem;
+    box-sizing: border-box;
+    margin-top: 4rem;
+    /* Add top margin to avoid overlap with the top navbar */
+}
+
+.admin-navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-navbar li {
+    margin: 1rem 0;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.admin-navbar li.active {
+    background-color: #666;
+    /* Highlight color for the selected link */
+    color: white;
+    font-weight: bold;
+}
+
+.admin-navbar li:hover {
+    text-decoration: underline;
+}
+
+.admin-content {
+    width: 60%;
+    /* Adjust content width to 60% */
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: white;
+}
