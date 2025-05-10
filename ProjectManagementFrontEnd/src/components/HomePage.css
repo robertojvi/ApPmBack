@@ -1,0 +1,25 @@
+.container {
+    width: 100vw;
+    /* Ensure full viewport width */
+    height: 100vh;
+    /* Ensure full viewport height */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: lightgray;
+}
+
+.container>* {
+    width: 100%;
+    /* Ensure all child elements use 100% of the available width */
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100vw;
+        /* Ensure full width on smaller screens */
+    }
+}
