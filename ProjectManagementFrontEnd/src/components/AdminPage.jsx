@@ -4,7 +4,7 @@ import Projects from "./admin/Projects";
 import Venues from "./admin/Venues";
 import Contractors from "./admin/Contractors";
 import ProjectManagers from "./admin/ProjectManagers";
-import Forms from "./admin/Forms";
+import Foms from "./admin/Foms";
 import ImplementationEngineers from "./admin/ImplementationEngineers";
 import FiberCircuits from "./admin/FiberCircuits";
 
@@ -21,8 +21,8 @@ function AdminPage() {
 				return <Contractors />;
 			case "Project Managers":
 				return <ProjectManagers />;
-			case "Forms":
-				return <Forms />;
+			case "Foms":
+				return <Foms />;
 			case "Implementation Engineers":
 				return <ImplementationEngineers />;
 			case "Fiber Circuits":
@@ -64,10 +64,10 @@ function AdminPage() {
 						Project Managers
 					</li>
 					<li
-						className={selectedComponent === "Forms" ? "active" : ""}
-						onClick={() => setSelectedComponent("Forms")}
+						className={selectedComponent === "Foms" ? "active" : ""}
+						onClick={() => setSelectedComponent("Foms")}
 					>
-						Forms
+						Foms
 					</li>
 					<li
 						className={
