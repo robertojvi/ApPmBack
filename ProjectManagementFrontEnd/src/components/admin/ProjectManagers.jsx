@@ -88,7 +88,7 @@ function ProjectManagers() {
 					</tr>
 				</thead>
 				<tbody>
-						{managers.map((manager) => (
+					{managers.map((manager) => (
 						<tr key={manager.id} style={{ borderBottom: "1px solid #ddd" }}>
 							<td style={{ padding: "12px" }}>{manager.name}</td>
 							<td style={{ padding: "12px" }}>{manager.email}</td>

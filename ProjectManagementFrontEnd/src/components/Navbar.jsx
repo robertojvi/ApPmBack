@@ -9,10 +9,10 @@ function Navbar() {
 					<Link to="/">Home Page</Link>
 				</li>
 				<li>
-					<Link to="/admin">Administration Page</Link>
+					<Link to="/project-management">Project Management</Link>
 				</li>
 				<li>
-					<Link to="/project-management">Project Management</Link>
+					<Link to="/admin">Administration Page</Link>
 				</li>
 			</ul>
 		</nav>
