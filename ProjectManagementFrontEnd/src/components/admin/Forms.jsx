@@ -3,10 +3,12 @@ function Forms() {
 		<div
 			className="component-container"
 			style={{
-				backgroundColor: "#f0f0f0",
+				backgroundColor: "#d3d3d3", // Darker background color
 				padding: "1rem",
-				width: "100%", // Ensure the container spans the full width
+				width: "100%",
+				height: "100%",
 				boxSizing: "border-box",
+				color: "black", // Set text color to black
 			}}
 		>
 			<h1 style={{ width: "100%", textAlign: "center" }}>Forms</h1>
