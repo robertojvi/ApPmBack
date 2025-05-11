@@ -1,16 +1,18 @@
 function Projects() {
 	return (
 		<div
+			className="component-container"
 			style={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
+				backgroundColor: "#d3d3d3", // Darker background color
+				padding: "1rem",
 				width: "100%",
+				height: "100%",
+				boxSizing: "border-box",
+				color: "black", // Set text color to black
 			}}
 		>
-			<h1>Projects</h1>
-			<p>
+			<h1 style={{ width: "100%", textAlign: "center" }}>Projects</h1>
+			<p style={{ width: "100%", textAlign: "center" }}>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
 				odio. Praesent libero. Sed cursus ante dapibus diam.
 			</p>

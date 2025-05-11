@@ -1,16 +1,16 @@
 function Contractors() {
 	return (
 		<div
+			className="component-container"
 			style={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
-				width: "100%",
+				backgroundColor: "#f0f0f0",
+				padding: "1rem",
+				width: "100%", // Ensure the container spans the full width
+				boxSizing: "border-box",
 			}}
 		>
-			<h1>Contractors</h1>
-			<p>
+			<h1 style={{ width: "100%", textAlign: "center" }}>Contractors</h1>
+			<p style={{ width: "100%", textAlign: "center" }}>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
 				odio. Praesent libero. Sed cursus ante dapibus diam.
 			</p>
