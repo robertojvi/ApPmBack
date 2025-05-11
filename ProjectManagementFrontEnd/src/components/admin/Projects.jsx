@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 function Projects() {
 	const [projects, setProjects] = useState([]);
@@ -32,6 +32,19 @@ function Projects() {
 	return (
 		<div className="projects-container" style={{ color: "black" }}>
 			<h2>Projects List</h2>
+			<button
+				style={{
+					padding: "8px 16px",
+					backgroundColor: "#4CAF50",
+					color: "white",
+					border: "none",
+					borderRadius: "4px",
+					cursor: "pointer",
+					marginBottom: "1rem",
+				}}
+			>
+				Create New Project
+			</button>
 			<table
 				style={{
 					width: "100%",
@@ -84,8 +97,7 @@ function Projects() {
 							<td style={{ padding: "12px" }}>{project.status}</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
 								<FaEdit style={{ cursor: "pointer", marginRight: "10px" }} />
-								<FaTrash style={{ cursor: "pointer", marginRight: "10px" }} />
-								<FaPlus style={{ cursor: "pointer" }} />
+								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
 						</tr>
 					))}

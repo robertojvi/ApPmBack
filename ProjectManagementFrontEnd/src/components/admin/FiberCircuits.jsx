@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 function FiberCircuits() {
 	const [circuits, setCircuits] = useState([]);
@@ -30,6 +30,19 @@ function FiberCircuits() {
 	return (
 		<div style={{ color: "black" }}>
 			<h2>Fiber Circuits List</h2>
+			<button
+				style={{
+					padding: "8px 16px",
+					backgroundColor: "#4CAF50",
+					color: "white",
+					border: "none",
+					borderRadius: "4px",
+					cursor: "pointer",
+					marginBottom: "1rem",
+				}}
+			>
+				Create New Fiber Circuit
+			</button>
 			<table
 				style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}
 			>
@@ -65,15 +78,6 @@ function FiberCircuits() {
 						<th
 							style={{
 								padding: "12px",
-								textAlign: "left",
-								borderBottom: "2px solid #ddd",
-							}}
-						>
-							Bandwidth
-						</th>
-						<th
-							style={{
-								padding: "12px",
 								textAlign: "center",
 								borderBottom: "2px solid #ddd",
 							}}
@@ -88,11 +92,9 @@ function FiberCircuits() {
 							<td style={{ padding: "12px" }}>{circuit.providerName}</td>
 							<td style={{ padding: "12px" }}>{circuit.circuitId}</td>
 							<td style={{ padding: "12px" }}>{circuit.circuitStatus}</td>
-							<td style={{ padding: "12px" }}>{circuit.circuitBandwidth}</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
 								<FaEdit style={{ cursor: "pointer", marginRight: "10px" }} />
-								<FaTrash style={{ cursor: "pointer", marginRight: "10px" }} />
-								<FaPlus style={{ cursor: "pointer" }} />
+								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
 						</tr>
 					))}

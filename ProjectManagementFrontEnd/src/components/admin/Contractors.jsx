@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 function Contractors() {
 	const [contractors, setContractors] = useState([]);
@@ -27,11 +27,11 @@ function Contractors() {
 	}, []);
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <div style={{ color: "black" }}>Loading...</div>;
 	}
 
 	if (error) {
-		return <div>Error: {error}</div>;
+		return <div style={{ color: "black" }}>Error: {error}</div>;
 	}
 
 	return (
@@ -47,6 +47,19 @@ function Contractors() {
 			}}
 		>
 			<h1 style={{ width: "100%", textAlign: "center" }}>Contractors</h1>
+			<button
+				style={{
+					padding: "8px 16px",
+					backgroundColor: "#4CAF50",
+					color: "white",
+					border: "none",
+					borderRadius: "4px",
+					cursor: "pointer",
+					marginBottom: "1rem",
+				}}
+			>
+				Create New Contractor
+			</button>
 			<table style={{ width: "100%", borderCollapse: "collapse" }}>
 				<thead>
 					<tr>
@@ -55,6 +68,9 @@ function Contractors() {
 						</th>
 						<th style={{ border: "1px solid black", padding: "0.5rem" }}>
 							Email
+						</th>
+						<th style={{ border: "1px solid black", padding: "0.5rem" }}>
+							Phone
 						</th>
 						<th style={{ border: "1px solid black", padding: "0.5rem" }}>
 							Actions
@@ -71,6 +87,9 @@ function Contractors() {
 								{contractor.email}
 							</td>
 							<td style={{ border: "1px solid black", padding: "0.5rem" }}>
+								{contractor.phoneNumber}
+							</td>
+							<td style={{ border: "1px solid black", padding: "0.5rem" }}>
 								<FaEdit style={{ cursor: "pointer", marginRight: "0.5rem" }} />
 								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
@@ -78,11 +97,6 @@ function Contractors() {
 					))}
 				</tbody>
 			</table>
-			<button
-				style={{ marginTop: "1rem", padding: "0.5rem 1rem", cursor: "pointer" }}
-			>
-				<FaPlus style={{ marginRight: "0.5rem" }} /> Add Contractor
-			</button>
 		</div>
 	);
 }
