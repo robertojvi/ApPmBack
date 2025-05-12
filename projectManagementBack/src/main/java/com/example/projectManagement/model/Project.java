@@ -62,7 +62,7 @@ public class Project {
 
     private Integer numberOfPointToPoints;
     private Integer numberOfPointToPointsCompleted;
-    private String SalesDealClosedDate;
+    private String salesDealClosedDate;
 
     public Long getId() {
         return id;
@@ -329,10 +329,10 @@ public class Project {
     }
 
     public String getSalesDealClosedDate() {
-        return SalesDealClosedDate;
+        return salesDealClosedDate;
     }
 
     public void setSalesDealClosedDate(String salesDealClosedDate) {
-        SalesDealClosedDate = salesDealClosedDate;
+        this.salesDealClosedDate = salesDealClosedDate;
     }
 }
