@@ -45,7 +45,8 @@ public class Project {
     private Integer feetTrenching;
     private Integer feetConduit;
     private Integer feetFiber;
-    private Integer numberOfAccessPoints;
+    private Integer numberOfInteriorAccessPoints;
+    private Integer numberOfExteriorAccessPoints;
     private Boolean headendInstallation;
 
     private double percentageComplete;
@@ -56,7 +57,12 @@ public class Project {
     private Integer feetTrenchingCompleted;
     private Integer feetConduitCompleted;
     private Integer feetFiberCompleted;
-    private Integer numberOfAccessPointsCompleted;
+    private Integer numberOfInteriorAccessPointsCompleted;
+    private Integer numberOfExteriorAccessPointsCompleted;
+
+    private Integer numberOfPointToPoints;
+    private Integer numberOfPointToPointsCompleted;
+    private String SalesDealClosedDate;
 
     public Long getId() {
         return id;
@@ -202,12 +208,20 @@ public class Project {
         this.feetFiber = feetFiber;
     }
 
-    public Integer getNumberOfAccessPoints() {
-        return numberOfAccessPoints;
+    public Integer getNumberOfInteriorAccessPoints() {
+        return numberOfInteriorAccessPoints;
     }
 
-    public void setNumberOfAccessPoints(Integer numberOfAccessPoints) {
-        this.numberOfAccessPoints = numberOfAccessPoints;
+    public void setNumberOfInteriorAccessPoints(Integer numberOfInteriorAccessPoints) {
+        this.numberOfInteriorAccessPoints = numberOfInteriorAccessPoints;
+    }
+
+    public Integer getNumberOfExteriorAccessPoints() {
+        return numberOfExteriorAccessPoints;
+    }
+
+    public void setNumberOfExteriorAccessPoints(Integer numberOfExteriorAccessPoints) {
+        this.numberOfExteriorAccessPoints = numberOfExteriorAccessPoints;
     }
 
     public Boolean getHeadendInstallation() {
@@ -282,11 +296,43 @@ public class Project {
         this.feetFiberCompleted = feetFiberCompleted;
     }
 
-    public Integer getNumberOfAccessPointsCompleted() {
-        return numberOfAccessPointsCompleted;
+    public Integer getNumberOfInteriorAccessPointsCompleted() {
+        return numberOfInteriorAccessPointsCompleted;
     }
 
-    public void setNumberOfAccessPointsCompleted(Integer numberOfAccessPointsCompleted) {
-        this.numberOfAccessPointsCompleted = numberOfAccessPointsCompleted;
+    public void setNumberOfInteriorAccessPointsCompleted(Integer numberOfInteriorAccessPointsCompleted) {
+        this.numberOfInteriorAccessPointsCompleted = numberOfInteriorAccessPointsCompleted;
+    }
+
+    public Integer getNumberOfExteriorAccessPointsCompleted() {
+        return numberOfExteriorAccessPointsCompleted;
+    }
+
+    public void setNumberOfExteriorAccessPointsCompleted(Integer numberOfExteriorAccessPointsCompleted) {
+        this.numberOfExteriorAccessPointsCompleted = numberOfExteriorAccessPointsCompleted;
+    }
+
+    public Integer getNumberOfPointToPoints() {
+        return numberOfPointToPoints;
+    }
+
+    public void setNumberOfPointToPoints(Integer numberOfPointToPoints) {
+        this.numberOfPointToPoints = numberOfPointToPoints;
+    }
+
+    public Integer getNumberOfPointToPointsCompleted() {
+        return numberOfPointToPointsCompleted;
+    }
+
+    public void setNumberOfPointToPointsCompleted(Integer numberOfPointToPointsCompleted) {
+        this.numberOfPointToPointsCompleted = numberOfPointToPointsCompleted;
+    }
+
+    public String getSalesDealClosedDate() {
+        return SalesDealClosedDate;
+    }
+
+    public void setSalesDealClosedDate(String salesDealClosedDate) {
+        SalesDealClosedDate = salesDealClosedDate;
     }
 }

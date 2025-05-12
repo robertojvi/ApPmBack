@@ -27,6 +27,15 @@ public class Venue {
     @OneToMany(mappedBy = "venue")
     @JsonIgnore
     private Set<Project> projects;
+    private String contractSLA;
+
+    public String getContractSLA() {
+        return contractSLA;
+    }
+
+    public void setContractSLA(String contractSLA) {
+        this.contractSLA = contractSLA;
+    }
 
     public Set<Project> getProjects() {
         return projects;

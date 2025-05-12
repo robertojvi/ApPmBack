@@ -17,6 +17,15 @@ public class VenueDTO {
     private String electricalCompany;
     private List<String> buldings;
     private List<String> serviceAreas;
+    private String contractSLA;
+
+    public String getContractSLA() {
+        return contractSLA;
+    }
+
+    public void setContractSLA(String contractSLA) {
+        this.contractSLA = contractSLA;
+    }
 
     public Long getId() {
         return id;
