@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
-function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
+function FiberCircuitForm({ onClose, onFiberCircuitCreated }) {
 	const [formData, setFormData] = useState({
-		name: "",
-		address: "",
-		city: "",
-		state: "",
-		zipCode: "",
-		country: "",
-		phoneNumber: "",
-		email: "",
+		providerName: "",
+		circuitId: "",
+		circuitType: "",
+		circuitStatus: "",
+		circuitDescription: "",
+		circuitBandwidth: "",
+		circuitActivationDate: "",
+		circuitTerminationDate: "",
+		circuitLocation: "",
 	});
 	const [error, setError] = useState("");
 
@@ -29,7 +30,7 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 			const { id, ...payload } = formData;
 			let response;
 			try {
-				response = await fetch("/api/impEngineers", {
+				response = await fetch("/api/fiberCircuits", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -38,7 +39,7 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 				});
 			} catch (networkError) {
 				try {
-					response = await fetch("http://localhost:8080/api/impEngineers", {
+					response = await fetch("http://localhost:8080/api/fiberCircuits", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
@@ -57,20 +58,16 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 				data = await response.json();
 			} catch {}
 			if (!response.ok) {
-				let msg = "Failed to create Implementation Engineer";
+				let msg = "Failed to create Fiber Circuit";
 				if (data && data.message) msg = data.message;
 				setError(msg + (response.status ? ` (HTTP ${response.status})` : ""));
-				console.error(
-					"Implementation Engineer creation failed:",
-					response.status,
-					data
-				);
+				console.error("Fiber Circuit creation failed:", response.status, data);
 				return;
 			}
-			onImpEngineerCreated();
+			onFiberCircuitCreated();
 			onClose();
 		} catch (err) {
-			setError(err.message || "Failed to create Implementation Engineer");
+			setError(err.message || "Failed to create Fiber Circuit");
 			console.error("Unexpected error:", err);
 		}
 	};
@@ -102,7 +99,7 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 				}}
 			>
 				<h3 style={{ marginBottom: "1.5rem", color: "#333" }}>
-					Create New Implementation Engineer
+					Create New Fiber Circuit
 				</h3>
 				{error && (
 					<div
@@ -126,77 +123,13 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 							marginBottom: "16px",
 						}}
 					>
-						<label style={{ width: "50%", marginRight: "8px" }}>Name:</label>
+						<label style={{ width: "50%", marginRight: "8px" }}>
+							Provider Name:
+						</label>
 						<input
 							type="text"
-							name="name"
-							value={formData.name}
-							onChange={handleInputChange}
-							required
-							style={{
-								width: "50%",
-								padding: "8px",
-								border: "1px solid #ddd",
-								borderRadius: "4px",
-							}}
-						/>
-					</div>
-					<div
-						style={{
-							display: "flex",
-							alignItems: "center",
-							marginBottom: "16px",
-						}}
-					>
-						<label style={{ width: "50%", marginRight: "8px" }}>Address:</label>
-						<input
-							type="text"
-							name="address"
-							value={formData.address}
-							onChange={handleInputChange}
-							required
-							style={{
-								width: "50%",
-								padding: "8px",
-								border: "1px solid #ddd",
-								borderRadius: "4px",
-							}}
-						/>
-					</div>
-					<div
-						style={{
-							display: "flex",
-							alignItems: "center",
-							marginBottom: "16px",
-						}}
-					>
-						<label style={{ width: "50%", marginRight: "8px" }}>City:</label>
-						<input
-							type="text"
-							name="city"
-							value={formData.city}
-							onChange={handleInputChange}
-							required
-							style={{
-								width: "50%",
-								padding: "8px",
-								border: "1px solid #ddd",
-								borderRadius: "4px",
-							}}
-						/>
-					</div>
-					<div
-						style={{
-							display: "flex",
-							alignItems: "center",
-							marginBottom: "16px",
-						}}
-					>
-						<label style={{ width: "50%", marginRight: "8px" }}>State:</label>
-						<input
-							type="text"
-							name="state"
-							value={formData.state}
+							name="providerName"
+							value={formData.providerName}
 							onChange={handleInputChange}
 							required
 							style={{
@@ -215,34 +148,12 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 						}}
 					>
 						<label style={{ width: "50%", marginRight: "8px" }}>
-							Zip Code:
+							Circuit ID:
 						</label>
 						<input
 							type="text"
-							name="zipCode"
-							value={formData.zipCode}
-							onChange={handleInputChange}
-							required
-							style={{
-								width: "50%",
-								padding: "8px",
-								border: "1px solid #ddd",
-								borderRadius: "4px",
-							}}
-						/>
-					</div>
-					<div
-						style={{
-							display: "flex",
-							alignItems: "center",
-							marginBottom: "16px",
-						}}
-					>
-						<label style={{ width: "50%", marginRight: "8px" }}>Country:</label>
-						<input
-							type="text"
-							name="country"
-							value={formData.country}
+							name="circuitId"
+							value={formData.circuitId}
 							onChange={handleInputChange}
 							required
 							style={{
@@ -261,12 +172,12 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 						}}
 					>
 						<label style={{ width: "50%", marginRight: "8px" }}>
-							Phone Number:
+							Circuit Type:
 						</label>
 						<input
 							type="text"
-							name="phoneNumber"
-							value={formData.phoneNumber}
+							name="circuitType"
+							value={formData.circuitType}
 							onChange={handleInputChange}
 							required
 							style={{
@@ -284,11 +195,133 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 							marginBottom: "16px",
 						}}
 					>
-						<label style={{ width: "50%", marginRight: "8px" }}>Email:</label>
+						<label style={{ width: "50%", marginRight: "8px" }}>
+							Circuit Status:
+						</label>
 						<input
-							type="email"
-							name="email"
-							value={formData.email}
+							type="text"
+							name="circuitStatus"
+							value={formData.circuitStatus}
+							onChange={handleInputChange}
+							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
+						/>
+					</div>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label style={{ width: "50%", marginRight: "8px" }}>
+							Circuit Description:
+						</label>
+						<input
+							type="text"
+							name="circuitDescription"
+							value={formData.circuitDescription}
+							onChange={handleInputChange}
+							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
+						/>
+					</div>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label style={{ width: "50%", marginRight: "8px" }}>
+							Circuit Bandwidth:
+						</label>
+						<input
+							type="text"
+							name="circuitBandwidth"
+							value={formData.circuitBandwidth}
+							onChange={handleInputChange}
+							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
+						/>
+					</div>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label style={{ width: "50%", marginRight: "8px" }}>
+							Activation Date:
+						</label>
+						<input
+							type="text"
+							name="circuitActivationDate"
+							value={formData.circuitActivationDate}
+							onChange={handleInputChange}
+							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
+						/>
+					</div>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label style={{ width: "50%", marginRight: "8px" }}>
+							Termination Date:
+						</label>
+						<input
+							type="text"
+							name="circuitTerminationDate"
+							value={formData.circuitTerminationDate}
+							onChange={handleInputChange}
+							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
+						/>
+					</div>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label style={{ width: "50%", marginRight: "8px" }}>
+							Location:
+						</label>
+						<input
+							type="text"
+							name="circuitLocation"
+							value={formData.circuitLocation}
 							onChange={handleInputChange}
 							required
 							style={{
@@ -327,7 +360,7 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 								cursor: "pointer",
 							}}
 						>
-							Create Implementation Engineer
+							Create Fiber Circuit
 						</button>
 					</div>
 				</form>
@@ -336,4 +369,4 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 	);
 }
 
-export default ImpEngineerForm;
+export default FiberCircuitForm;

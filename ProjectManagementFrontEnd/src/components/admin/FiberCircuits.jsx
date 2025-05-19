@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from "react";
+import FiberCircuitForm from "./FiberCircuitForm";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 function FiberCircuits() {
-	const [circuits, setCircuits] = useState([]);
+	const [fiberCircuits, setFiberCircuits] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [showForm, setShowForm] = useState(false);
+
+	const fetchFiberCircuits = async () => {
+		setLoading(true);
+		setError(null);
+		try {
+			const response = await fetch("/api/fiberCircuits/list");
+			if (!response.ok)
+				throw new Error(`HTTP error! status: ${response.status}`);
+			const data = await response.json();
+			setFiberCircuits(data);
+		} catch (error) {
+			console.error("Error fetching Fiber Circuits:", error);
+			setError(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	useEffect(() => {
-		const fetchCircuits = async () => {
-			try {
-				const response = await fetch("/api/fiberCircuits/list");
-				if (!response.ok)
-					throw new Error(`HTTP error! status: ${response.status}`);
-				const data = await response.json();
-				setCircuits(data);
-			} catch (error) {
-				setError(error.message);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchCircuits();
+		fetchFiberCircuits();
 	}, []);
+
+	const refreshFiberCircuits = () => {
+		fetchFiberCircuits();
+	};
 
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
@@ -31,6 +40,7 @@ function FiberCircuits() {
 		<div style={{ color: "black" }}>
 			<h2>Fiber Circuits List</h2>
 			<button
+				onClick={() => setShowForm(true)}
 				style={{
 					padding: "8px 16px",
 					backgroundColor: "#4CAF50",
@@ -43,6 +53,12 @@ function FiberCircuits() {
 			>
 				Create New Fiber Circuit
 			</button>
+			{showForm && (
+				<FiberCircuitForm
+					onClose={() => setShowForm(false)}
+					onFiberCircuitCreated={refreshFiberCircuits}
+				/>
+			)}
 			<table
 				style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}
 			>
@@ -73,7 +89,7 @@ function FiberCircuits() {
 								borderBottom: "2px solid #ddd",
 							}}
 						>
-							Circuit Status
+							Status
 						</th>
 						<th
 							style={{
@@ -87,7 +103,7 @@ function FiberCircuits() {
 					</tr>
 				</thead>
 				<tbody>
-					{circuits.map((circuit) => (
+					{fiberCircuits.map((circuit) => (
 						<tr key={circuit.id} style={{ borderBottom: "1px solid #ddd" }}>
 							<td style={{ padding: "12px" }}>{circuit.providerName}</td>
 							<td style={{ padding: "12px" }}>{circuit.circuitId}</td>

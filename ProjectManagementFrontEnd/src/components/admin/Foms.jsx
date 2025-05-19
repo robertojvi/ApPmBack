@@ -64,10 +64,42 @@ function Foms() {
 			>
 				<thead>
 					<tr style={{ backgroundColor: "#f4f4f4" }}>
-						<th style={{ padding: "12px", textAlign: "left", borderBottom: "2px solid #ddd" }}>Name</th>
-						<th style={{ padding: "12px", textAlign: "left", borderBottom: "2px solid #ddd" }}>City</th>
-						<th style={{ padding: "12px", textAlign: "left", borderBottom: "2px solid #ddd" }}>State</th>
-						<th style={{ padding: "12px", textAlign: "center", borderBottom: "2px solid #ddd" }}>Actions</th>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
+							Name
+						</th>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
+							City
+						</th>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
+							State
+						</th>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "center",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
+							Actions
+						</th>
 					</tr>
 				</thead>
 				<tbody>
