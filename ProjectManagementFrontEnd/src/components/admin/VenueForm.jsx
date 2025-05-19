@@ -114,175 +114,478 @@ function VenueForm({ onClose, onVenueCreated }) {
 			<div
 				style={{
 					backgroundColor: "white",
-					padding: "20px",
-					borderRadius: "8px",
-					width: "80%",
+					padding: "32px 24px",
+					borderRadius: "12px",
+					width: "90%",
 					maxWidth: "600px",
-					maxHeight: "80vh",
-					overflowY: "auto",
+					boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
+					color: "black",
 				}}
 			>
-				<h3>Create New Venue</h3>
+				<h3
+					style={{
+						marginBottom: "1.5rem",
+						color: "#333",
+					}}
+				>
+					Create New Venue
+				</h3>
 				{error && (
 					<div
 						style={{
-							color: "red",
-							marginBottom: "10px",
-							padding: "10px",
-							backgroundColor: "#ffebee",
+							color: "#721c24",
+							backgroundColor: "#f8d7da",
+							border: "1px solid #f5c6cb",
+							borderRadius: "4px",
+							marginBottom: "16px",
+							padding: "12px",
 						}}
 					>
 						{error}
 					</div>
 				)}
 				<form onSubmit={handleSubmit}>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Name: </label>
+					{/* Each row is a flex container: label 50%, input 50% */}
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Name:
+						</label>
 						<input
 							type="text"
 							name="name"
 							value={formData.name}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Address: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Address:
+						</label>
 						<input
 							type="text"
 							name="address"
 							value={formData.address}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>City: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							City:
+						</label>
 						<input
 							type="text"
 							name="city"
 							value={formData.city}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>State: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							State:
+						</label>
 						<input
 							type="text"
 							name="state"
 							value={formData.state}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Zip Code: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Zip Code:
+						</label>
 						<input
 							type="text"
 							name="zipCode"
 							value={formData.zipCode}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Country: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Country:
+						</label>
 						<input
 							type="text"
 							name="country"
 							value={formData.country}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Phone Number: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Phone Number:
+						</label>
 						<input
 							type="text"
 							name="phoneNumber"
 							value={formData.phoneNumber}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Email: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Email:
+						</label>
 						<input
 							type="email"
 							name="email"
 							value={formData.email}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Contact Person: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Contact Person:
+						</label>
 						<input
 							type="text"
 							name="contactPerson"
 							value={formData.contactPerson}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Number of Lots: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Number of Lots:
+						</label>
 						<input
 							type="number"
 							name="numberOfLots"
 							value={formData.numberOfLots}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Electrical Company: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Electrical Company:
+						</label>
 						<input
 							type="text"
 							name="electricalCompany"
 							value={formData.electricalCompany}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Buildings (comma-separated): </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Buildings (comma-separated):
+						</label>
 						<input
 							type="text"
 							name="buldings"
 							value={formData.buldings.join(", ")}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Service Areas (comma-separated): </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Service Areas (comma-separated):
+						</label>
 						<input
 							type="text"
 							name="serviceAreas"
 							value={formData.serviceAreas.join(", ")}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
-					<div style={{ marginBottom: "10px" }}>
-						<label>Contract SLA: </label>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							marginBottom: "16px",
+						}}
+					>
+						<label
+							style={{
+								width: "50%",
+								marginRight: "8px",
+							}}
+						>
+							Contract SLA:
+						</label>
 						<input
 							type="text"
 							name="contractSLA"
 							value={formData.contractSLA}
 							onChange={handleInputChange}
 							required
+							style={{
+								width: "50%",
+								padding: "8px",
+								border: "1px solid #ddd",
+								borderRadius: "4px",
+							}}
 						/>
 					</div>
 					<div
-						style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}
+						style={{
+							display: "flex",
+							gap: "10px",
+							justifyContent: "flex-end",
+						}}
 					>
-						<button type="button" onClick={onClose}>
+						<button
+							type="button"
+							onClick={onClose}
+							style={{
+								padding: "8px 16px",
+								backgroundColor: "#ccc",
+								color: "#333",
+								border: "none",
+								borderRadius: "4px",
+								cursor: "pointer",
+							}}
+						>
 							Cancel
 						</button>
-						<button type="submit">Create Venue</button>
+						<button
+							type="submit"
+							style={{
+								padding: "8px 16px",
+								backgroundColor: "#4CAF50",
+								color: "white",
+								border: "none",
+								borderRadius: "4px",
+								cursor: "pointer",
+							}}
+						>
+							Create Venue
+						</button>
 					</div>
 				</form>
 			</div>
