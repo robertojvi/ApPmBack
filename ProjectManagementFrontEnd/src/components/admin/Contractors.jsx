@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import ContractorForm from "./ContractorForm";
 
 function Contractors() {
 	const [contractors, setContractors] = useState([]);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [showForm, setShowForm] = useState(false);
+
+	const fetchContractors = async () => {
+		setLoading(true);
+		setError(null);
+		try {
+			const response = await fetch("/api/contractors/list");
+			if (!response.ok)
+				throw new Error(`HTTP error! status: ${response.status}`);
+			const data = await response.json();
+			setContractors(data);
+		} catch (error) {
+			console.error("Error fetching contractors:", error);
+			setError(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	useEffect(() => {
-		const fetchContractors = async () => {
-			setLoading(true);
-			try {
-				const response = await fetch("/api/contractors/list");
-				if (!response.ok) {
-					throw new Error("Failed to fetch contractors");
-				}
-				const data = await response.json();
-				setContractors(data);
-			} catch (error) {
-				setError(error.message);
-			} finally {
-				setLoading(false);
-			}
-		};
-
 		fetchContractors();
 	}, []);
 
-	if (loading) {
-		return <div style={{ color: "black" }}>Loading...</div>;
-	}
+	const refreshContractors = () => {
+		fetchContractors();
+	};
 
-	if (error) {
-		return <div style={{ color: "black" }}>Error: {error}</div>;
-	}
+	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
+	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
 	return (
 		<div
@@ -48,6 +49,7 @@ function Contractors() {
 		>
 			<h1 style={{ width: "100%", textAlign: "center" }}>Contractors</h1>
 			<button
+				onClick={() => setShowForm(true)}
 				style={{
 					padding: "8px 16px",
 					backgroundColor: "#4CAF50",
@@ -60,38 +62,63 @@ function Contractors() {
 			>
 				Create New Contractor
 			</button>
-			<table style={{ width: "100%", borderCollapse: "collapse" }}>
+			{showForm && (
+				<ContractorForm
+					onClose={() => setShowForm(false)}
+					onContractorCreated={refreshContractors}
+				/>
+			)}
+			<table
+				style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}
+			>
 				<thead>
-					<tr>
-						<th style={{ border: "1px solid black", padding: "0.5rem" }}>
+					<tr style={{ backgroundColor: "#f4f4f4" }}>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
 							Name
 						</th>
-						<th style={{ border: "1px solid black", padding: "0.5rem" }}>
-							Email
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
+							City
 						</th>
-						<th style={{ border: "1px solid black", padding: "0.5rem" }}>
-							Phone
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
+							State
 						</th>
-						<th style={{ border: "1px solid black", padding: "0.5rem" }}>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "center",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
 							Actions
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					{contractors.map((contractor) => (
-						<tr key={contractor.id}>
-							<td style={{ border: "1px solid black", padding: "0.5rem" }}>
-								{contractor.name}
-							</td>
-							<td style={{ border: "1px solid black", padding: "0.5rem" }}>
-								{contractor.email}
-							</td>
-							<td style={{ border: "1px solid black", padding: "0.5rem" }}>
-								{contractor.phoneNumber}
-							</td>
-							<td style={{ border: "1px solid black", padding: "0.5rem" }}>
-								<FaEdit style={{ cursor: "pointer", marginRight: "0.5rem" }} />
-								<FaTrash style={{ cursor: "pointer" }} />
+						<tr key={contractor.id} style={{ borderBottom: "1px solid #ddd" }}>
+							<td style={{ padding: "12px" }}>{contractor.name}</td>
+							<td style={{ padding: "12px" }}>{contractor.city}</td>
+							<td style={{ padding: "12px" }}>{contractor.state}</td>
+							<td style={{ padding: "12px", textAlign: "center" }}>
+								{/* Add edit/delete icons if needed */}
 							</td>
 						</tr>
 					))}
