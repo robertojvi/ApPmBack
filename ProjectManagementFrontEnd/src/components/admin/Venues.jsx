@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import VenueForm from "./VenueForm"; // <-- Import the form
 
 function Venues() {
 	const [venues, setVenues] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [showForm, setShowForm] = useState(false); // <-- Add form visibility state
 
 	useEffect(() => {
 		const fetchVenues = async () => {
@@ -25,6 +27,19 @@ function Venues() {
 		fetchVenues();
 	}, []);
 
+	const refreshVenues = () => {
+		setLoading(true);
+		setError(null);
+		fetch("/api/venues/list")
+			.then((res) => {
+				if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+				return res.json();
+			})
+			.then((data) => setVenues(data))
+			.catch((error) => setError(error.message))
+			.finally(() => setLoading(false));
+	};
+
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
@@ -32,6 +47,7 @@ function Venues() {
 		<div style={{ color: "black" }}>
 			<h2>Venues List</h2>
 			<button
+				onClick={() => setShowForm(true)} // <-- Show the form on click
 				style={{
 					padding: "8px 16px",
 					backgroundColor: "#4CAF50",
@@ -44,6 +60,12 @@ function Venues() {
 			>
 				Create New Venue
 			</button>
+			{showForm && (
+				<VenueForm
+					onClose={() => setShowForm(false)}
+					onVenueCreated={refreshVenues}
+				/>
+			)}
 			<table
 				style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}
 			>
