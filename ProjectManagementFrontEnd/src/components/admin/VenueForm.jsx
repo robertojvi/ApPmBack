@@ -59,32 +59,36 @@ function VenueForm({ onClose, onVenueCreated, initialData, isEditing }) {
 				contactPerson: formData.contactPerson,
 				numberOfLots: parseInt(formData.numberOfLots),
 				electricalCompany: formData.electricalCompany,
-				buldings: Array.isArray(formData.buldings) ? formData.buldings : formData.buldings.split(',').map(b => b.trim()),
-				serviceAreas: Array.isArray(formData.serviceAreas) ? formData.serviceAreas : formData.serviceAreas.split(',').map(s => s.trim()),
-				contractSLA: formData.contractSLA
+				buldings: Array.isArray(formData.buldings)
+					? formData.buldings
+					: formData.buldings.split(",").map((b) => b.trim()),
+				serviceAreas: Array.isArray(formData.serviceAreas)
+					? formData.serviceAreas
+					: formData.serviceAreas.split(",").map((s) => s.trim()),
+				contractSLA: formData.contractSLA,
 			};
 
-			console.log('Sending payload:', payload); // Debug log
+			console.log("Sending payload:", payload); // Debug log
 
-			const response = await fetch('/api/venues', {
-				method: isEditing ? 'PUT' : 'POST',
+			const response = await fetch("/api/venues", {
+				method: isEditing ? "PUT" : "POST",
 				headers: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(payload)
+				body: JSON.stringify(payload),
 			});
 
 			const data = await response.json();
-			
+
 			if (!response.ok) {
-				throw new Error(data.message || 'Failed to save venue');
+				throw new Error(data.message || "Failed to save venue");
 			}
 
 			onVenueCreated();
 			onClose();
 		} catch (err) {
-			console.error('Error details:', err);
-			setError(err.message || 'Failed to save venue');
+			console.error("Error details:", err);
+			setError(err.message || "Failed to save venue");
 		}
 	};
 
