@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function ContractorForm({ onClose, onContractorCreated }) {
+function ContractorForm({
+	onClose,
+	onContractorCreated,
+	initialData,
+	isEditing,
+}) {
 	const [formData, setFormData] = useState({
+		id: "",
 		name: "",
 		address: "",
 		city: "",
@@ -12,6 +18,12 @@ function ContractorForm({ onClose, onContractorCreated }) {
 		email: "",
 	});
 	const [error, setError] = useState("");
+
+	useEffect(() => {
+		if (initialData) {
+			setFormData(initialData);
+		}
+	}, [initialData]);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -25,49 +37,23 @@ function ContractorForm({ onClose, onContractorCreated }) {
 		e.preventDefault();
 		setError("");
 		try {
-			// Remove id if present
-			const { id, ...payload } = formData;
-			let response;
-			try {
-				response = await fetch("/api/contractors", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(payload),
-				});
-			} catch (networkError) {
-				try {
-					response = await fetch("http://localhost:8080/api/contractors", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(payload),
-					});
-				} catch (networkError2) {
-					setError(
-						"Network error: Could not reach backend. Is it running and is CORS enabled?"
-					);
-					return;
-				}
-			}
-			let data = null;
-			try {
-				data = await response.json();
-			} catch {}
+			const response = await fetch("/api/contractors", {
+				method: isEditing ? "PUT" : "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+
 			if (!response.ok) {
-				let msg = "Failed to create contractor";
-				if (data && data.message) msg = data.message;
-				setError(msg + (response.status ? ` (HTTP ${response.status})` : ""));
-				console.error("Contractor creation failed:", response.status, data);
-				return;
+				throw new Error(`HTTP error! status: ${response.status}`);
 			}
+
 			onContractorCreated();
 			onClose();
 		} catch (err) {
-			setError(err.message || "Failed to create contractor");
-			console.error("Unexpected error:", err);
+			setError(err.message || "Failed to save contractor");
+			console.error("Error saving contractor:", err);
 		}
 	};
 
@@ -98,7 +84,7 @@ function ContractorForm({ onClose, onContractorCreated }) {
 				}}
 			>
 				<h3 style={{ marginBottom: "1.5rem", color: "#333" }}>
-					Create New Contractor
+					{isEditing ? "Edit Contractor" : "Create New Contractor"}
 				</h3>
 				{error && (
 					<div
@@ -323,7 +309,7 @@ function ContractorForm({ onClose, onContractorCreated }) {
 								cursor: "pointer",
 							}}
 						>
-							Create Contractor
+							{isEditing ? "Update Contractor" : "Create Contractor"}
 						</button>
 					</div>
 				</form>

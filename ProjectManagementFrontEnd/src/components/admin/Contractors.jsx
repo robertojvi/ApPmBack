@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import ContractorForm from "./ContractorForm";
 
 function Contractors() {
@@ -6,6 +7,7 @@ function Contractors() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [showForm, setShowForm] = useState(false);
+	const [selectedContractor, setSelectedContractor] = useState(null);
 
 	const fetchContractors = async () => {
 		setLoading(true);
@@ -30,6 +32,16 @@ function Contractors() {
 
 	const refreshContractors = () => {
 		fetchContractors();
+	};
+
+	const handleEdit = (contractor) => {
+		setSelectedContractor(contractor);
+		setShowForm(true);
+	};
+
+	const handleCloseForm = () => {
+		setShowForm(false);
+		setSelectedContractor(null);
 	};
 
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
@@ -64,8 +76,13 @@ function Contractors() {
 			</button>
 			{showForm && (
 				<ContractorForm
-					onClose={() => setShowForm(false)}
-					onContractorCreated={refreshContractors}
+					onClose={handleCloseForm}
+					onContractorCreated={() => {
+						handleCloseForm();
+						fetchContractors();
+					}}
+					initialData={selectedContractor}
+					isEditing={!!selectedContractor}
 				/>
 			)}
 			<table
@@ -118,7 +135,11 @@ function Contractors() {
 							<td style={{ padding: "12px" }}>{contractor.city}</td>
 							<td style={{ padding: "12px" }}>{contractor.state}</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
-								{/* Add edit/delete icons if needed */}
+								<FaEdit
+									style={{ cursor: "pointer", marginRight: "10px" }}
+									onClick={() => handleEdit(contractor)}
+								/>
+								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
 						</tr>
 					))}
