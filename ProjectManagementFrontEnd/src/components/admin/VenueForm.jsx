@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function VenueForm({ onClose, onVenueCreated }) {
+function VenueForm({ onClose, onVenueCreated, initialData, isEditing }) {
 	const [formData, setFormData] = useState({
+		id: "",
 		name: "",
 		address: "",
 		city: "",
@@ -18,6 +19,12 @@ function VenueForm({ onClose, onVenueCreated }) {
 		contractSLA: "",
 	});
 	const [error, setError] = useState("");
+
+	useEffect(() => {
+		if (initialData) {
+			setFormData(initialData);
+		}
+	}, [initialData]);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -38,61 +45,46 @@ function VenueForm({ onClose, onVenueCreated }) {
 		e.preventDefault();
 		setError("");
 		try {
+			// Ensure correct data types and format
 			const payload = {
-				...formData,
-				numberOfLots: Number(formData.numberOfLots),
-				buldings: Array.isArray(formData.buldings)
-					? formData.buldings.filter((b) => b)
-					: [],
-				serviceAreas: Array.isArray(formData.serviceAreas)
-					? formData.serviceAreas.filter((s) => s)
-					: [],
+				...(isEditing ? { id: initialData.id } : {}), // Include id only when editing
+				name: formData.name,
+				address: formData.address,
+				city: formData.city,
+				state: formData.state,
+				zipCode: formData.zipCode,
+				country: formData.country,
+				phoneNumber: formData.phoneNumber,
+				email: formData.email,
+				contactPerson: formData.contactPerson,
+				numberOfLots: parseInt(formData.numberOfLots),
+				electricalCompany: formData.electricalCompany,
+				buldings: Array.isArray(formData.buldings) ? formData.buldings : formData.buldings.split(',').map(b => b.trim()),
+				serviceAreas: Array.isArray(formData.serviceAreas) ? formData.serviceAreas : formData.serviceAreas.split(',').map(s => s.trim()),
+				contractSLA: formData.contractSLA
 			};
-			let response;
-			try {
-				// Try relative path first (if you have a proxy set up in package.json)
-				response = await fetch("/api/venues", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(payload),
-				});
-			} catch (networkError) {
-				// If relative fails, try absolute URL
-				try {
-					response = await fetch("http://localhost:8080/api/venues", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(payload),
-					});
-				} catch (networkError2) {
-					setError(
-						"Network error: Could not reach backend. Is it running and is CORS enabled?"
-					);
-					return;
-				}
-			}
-			let data = null;
-			try {
-				data = await response.json();
-			} catch {
-				// If backend returns no JSON, ignore
-			}
+
+			console.log('Sending payload:', payload); // Debug log
+
+			const response = await fetch('/api/venues', {
+				method: isEditing ? 'PUT' : 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(payload)
+			});
+
+			const data = await response.json();
+			
 			if (!response.ok) {
-				let msg = "Failed to create venue";
-				if (data && data.message) msg = data.message;
-				setError(msg + (response.status ? ` (HTTP ${response.status})` : ""));
-				console.error("Venue creation failed:", response.status, data);
-				return;
+				throw new Error(data.message || 'Failed to save venue');
 			}
+
 			onVenueCreated();
 			onClose();
 		} catch (err) {
-			setError(err.message || "Failed to create venue");
-			console.error("Unexpected error:", err);
+			console.error('Error details:', err);
+			setError(err.message || 'Failed to save venue');
 		}
 	};
 
@@ -128,7 +120,7 @@ function VenueForm({ onClose, onVenueCreated }) {
 						color: "#333",
 					}}
 				>
-					Create New Venue
+					{isEditing ? "Edit Venue" : "Create New Venue"}
 				</h3>
 				{error && (
 					<div
@@ -584,7 +576,7 @@ function VenueForm({ onClose, onVenueCreated }) {
 								cursor: "pointer",
 							}}
 						>
-							Create Venue
+							{isEditing ? "Save Changes" : "Create Venue"}
 						</button>
 					</div>
 				</form>

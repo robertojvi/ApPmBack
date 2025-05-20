@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import VenueForm from "./VenueForm"; // <-- Import the form
+import VenueForm from "./VenueForm";
 
 function Venues() {
 	const [venues, setVenues] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const [showForm, setShowForm] = useState(false); // <-- Add form visibility state
+	const [showForm, setShowForm] = useState(false);
+	const [selectedVenue, setSelectedVenue] = useState(null);
 
 	useEffect(() => {
 		const fetchVenues = async () => {
@@ -40,6 +41,16 @@ function Venues() {
 			.finally(() => setLoading(false));
 	};
 
+	const handleEdit = (venue) => {
+		setSelectedVenue(venue);
+		setShowForm(true);
+	};
+
+	const handleCloseForm = () => {
+		setShowForm(false);
+		setSelectedVenue(null);
+	};
+
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
@@ -47,7 +58,7 @@ function Venues() {
 		<div style={{ color: "black" }}>
 			<h2>Venues List</h2>
 			<button
-				onClick={() => setShowForm(true)} // <-- Show the form on click
+				onClick={() => setShowForm(true)}
 				style={{
 					padding: "8px 16px",
 					backgroundColor: "#4CAF50",
@@ -62,8 +73,13 @@ function Venues() {
 			</button>
 			{showForm && (
 				<VenueForm
-					onClose={() => setShowForm(false)}
-					onVenueCreated={refreshVenues}
+					onClose={handleCloseForm}
+					onVenueCreated={() => {
+						handleCloseForm();
+						refreshVenues();
+					}}
+					initialData={selectedVenue}
+					isEditing={!!selectedVenue}
 				/>
 			)}
 			<table
@@ -116,7 +132,10 @@ function Venues() {
 							<td style={{ padding: "12px" }}>{venue.city}</td>
 							<td style={{ padding: "12px" }}>{venue.state}</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
-								<FaEdit style={{ cursor: "pointer", marginRight: "10px" }} />
+								<FaEdit
+									style={{ cursor: "pointer", marginRight: "10px" }}
+									onClick={() => handleEdit(venue)}
+								/>
 								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
 						</tr>
