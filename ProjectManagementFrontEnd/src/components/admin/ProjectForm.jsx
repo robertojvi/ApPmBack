@@ -94,6 +94,12 @@ function ProjectForm({ onClose, onProjectCreated, initialData, isEditing }) {
 		loadAllData();
 	}, []);
 
+	useEffect(() => {
+		if (initialData) {
+			setFormData(initialData);
+		}
+	}, [initialData]);
+
 	const handleInputChange = (e) => {
 		const { name, value, type, checked } = e.target;
 
@@ -140,27 +146,9 @@ function ProjectForm({ onClose, onProjectCreated, initialData, isEditing }) {
 		e.preventDefault();
 		setError("");
 		try {
-			// Validate required nested objects
-			const requiredFields = [
-				"venue",
-				"contractor",
-				"projectManager",
-				"fom",
-				"impEngineer",
-				"fiberCircuit",
-			];
-
-			for (const field of requiredFields) {
-				if (!formData[field]?.id) {
-					setError(
-						`Please select a ${field.replace(/([A-Z])/g, " $1").toLowerCase()}`
-					);
-					return;
-				}
-			}
-
 			const payload = {
 				...formData,
+				id: isEditing ? Number(formData.id) : undefined,
 				venue: { id: Number(formData.venue.id) },
 				contractor: { id: Number(formData.contractor.id) },
 				projectManager: { id: Number(formData.projectManager.id) },
@@ -206,7 +194,7 @@ function ProjectForm({ onClose, onProjectCreated, initialData, isEditing }) {
 			let response;
 			try {
 				response = await fetch("/api/projects", {
-					method: "POST",
+					method: isEditing ? "PUT" : "POST",
 					headers: {
 						"Content-Type": "application/json",
 						Accept: "application/json",
@@ -215,7 +203,7 @@ function ProjectForm({ onClose, onProjectCreated, initialData, isEditing }) {
 				});
 			} catch (networkError) {
 				response = await fetch("http://localhost:8080/api/projects", {
-					method: "POST",
+					method: isEditing ? "PUT" : "POST",
 					headers: {
 						"Content-Type": "application/json",
 						Accept: "application/json",
@@ -231,12 +219,13 @@ function ProjectForm({ onClose, onProjectCreated, initialData, isEditing }) {
 				);
 			}
 
-			const data = await response.json();
 			onProjectCreated();
 			onClose();
 		} catch (err) {
 			console.error("Error saving project:", err);
-			setError(`Failed to save project: ${err.message}`);
+			setError(
+				`Failed to ${isEditing ? "update" : "create"} project: ${err.message}`
+			);
 		}
 	};
 
@@ -269,7 +258,7 @@ function ProjectForm({ onClose, onProjectCreated, initialData, isEditing }) {
 				}}
 			>
 				<h3 style={{ marginBottom: "1.5rem", color: "#333" }}>
-					Create New Project
+					{isEditing ? "Edit Project" : "Create New Project"}
 				</h3>
 				{error && (
 					<div
@@ -704,7 +693,7 @@ function ProjectForm({ onClose, onProjectCreated, initialData, isEditing }) {
 								cursor: "pointer",
 							}}
 						>
-							Create Project
+							{isEditing ? "Update Project" : "Create Project"}
 						</button>
 					</div>
 				</form>

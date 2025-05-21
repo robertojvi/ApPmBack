@@ -37,6 +37,11 @@ function Projects() {
 		fetchProjects();
 	}, []);
 
+	const handleEdit = (project) => {
+		setSelectedProject(project);
+		setShowForm(true);
+	};
+
 	const handleCloseForm = () => {
 		setShowForm(false);
 		setSelectedProject(null);
@@ -66,10 +71,7 @@ function Projects() {
 			{showForm && (
 				<ProjectForm
 					onClose={handleCloseForm}
-					onProjectCreated={() => {
-						handleCloseForm();
-						fetchProjects();
-					}}
+					onProjectCreated={fetchProjects}
 					initialData={selectedProject}
 					isEditing={!!selectedProject}
 				/>
@@ -128,10 +130,7 @@ function Projects() {
 							<td style={{ padding: "12px", textAlign: "center" }}>
 								<FaEdit
 									style={{ cursor: "pointer", marginRight: "10px" }}
-									onClick={() => {
-										setSelectedProject(project);
-										setShowForm(true);
-									}}
+									onClick={() => handleEdit(project)}
 								/>
 								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
