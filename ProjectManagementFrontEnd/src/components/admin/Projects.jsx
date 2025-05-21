@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import ProjectForm from "./ProjectForm";
 
 function Projects() {
 	const [projects, setProjects] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [showForm, setShowForm] = useState(false);
+	const [selectedProject, setSelectedProject] = useState(null);
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -26,6 +29,11 @@ function Projects() {
 		fetchProjects();
 	}, []);
 
+	const handleCloseForm = () => {
+		setShowForm(false);
+		setSelectedProject(null);
+	};
+
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error: {error}</div>;
 
@@ -33,6 +41,7 @@ function Projects() {
 		<div className="projects-container" style={{ color: "black" }}>
 			<h2>Projects List</h2>
 			<button
+				onClick={() => setShowForm(true)}
 				style={{
 					padding: "8px 16px",
 					backgroundColor: "#4CAF50",
@@ -45,6 +54,19 @@ function Projects() {
 			>
 				Create New Project
 			</button>
+
+			{showForm && (
+				<ProjectForm
+					onClose={handleCloseForm}
+					onProjectCreated={() => {
+						handleCloseForm();
+						fetchProjects();
+					}}
+					initialData={selectedProject}
+					isEditing={!!selectedProject}
+				/>
+			)}
+
 			<table
 				style={{
 					width: "100%",
@@ -96,7 +118,13 @@ function Projects() {
 							<td style={{ padding: "12px" }}>{project.name}</td>
 							<td style={{ padding: "12px" }}>{project.status}</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
-								<FaEdit style={{ cursor: "pointer", marginRight: "10px" }} />
+								<FaEdit
+									style={{ cursor: "pointer", marginRight: "10px" }}
+									onClick={() => {
+										setSelectedProject(project);
+										setShowForm(true);
+									}}
+								/>
 								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
 						</tr>
