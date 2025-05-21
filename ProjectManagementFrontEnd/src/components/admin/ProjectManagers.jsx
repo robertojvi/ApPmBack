@@ -53,18 +53,8 @@ function ProjectManagers() {
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
 	return (
-		<div
-			className="component-container"
-			style={{
-				backgroundColor: "#d3d3d3",
-				padding: "1rem",
-				width: "100%",
-				height: "100%",
-				boxSizing: "border-box",
-				color: "black",
-			}}
-		>
-			<h1 style={{ width: "100%", textAlign: "center" }}>Project Managers</h1>
+		<div style={{ color: "black" }}>
+			<h2>Project Managers List</h2>
 			<button
 				onClick={() => {
 					setShowForm(true);

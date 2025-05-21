@@ -48,20 +48,13 @@ function Contractors() {
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
 	return (
-		<div
-			className="component-container"
-			style={{
-				backgroundColor: "#d3d3d3",
-				padding: "1rem",
-				width: "100%",
-				height: "100%",
-				boxSizing: "border-box",
-				color: "black",
-			}}
-		>
-			<h1 style={{ width: "100%", textAlign: "center" }}>Contractors</h1>
+		<div style={{ color: "black" }}>
+			<h2>Contractors List</h2>
 			<button
-				onClick={() => setShowForm(true)}
+				onClick={() => {
+					setShowForm(true);
+					setSelectedContractor(null);
+				}}
 				style={{
 					padding: "8px 16px",
 					backgroundColor: "#4CAF50",
@@ -74,6 +67,7 @@ function Contractors() {
 			>
 				Create New Contractor
 			</button>
+
 			{showForm && (
 				<ContractorForm
 					onClose={handleCloseForm}
@@ -85,6 +79,7 @@ function Contractors() {
 					isEditing={!!selectedContractor}
 				/>
 			)}
+
 			<table
 				style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}
 			>
