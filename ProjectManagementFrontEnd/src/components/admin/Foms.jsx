@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from "react";
-import FomForm from "./FomForm";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import FomForm from "./FomForm";
 
 function Foms() {
 	const [foms, setFoms] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [showForm, setShowForm] = useState(false);
+	const [selectedFom, setSelectedFom] = useState(null);
 
 	const fetchFoms = async () => {
 		setLoading(true);
 		setError(null);
 		try {
-			const response = await fetch("/api/foms/list");
-			if (!response.ok)
-				throw new Error(`HTTP error! status: ${response.status}`);
+			let response = await fetch("/api/foms/list");
+			if (!response.ok) {
+				try {
+					response = await fetch("http://localhost:8080/api/foms/list");
+					if (!response.ok)
+						throw new Error(`HTTP error! status: ${response.status}`);
+				} catch (networkError) {
+					throw new Error("Could not reach backend server");
+				}
+			}
 			const data = await response.json();
 			setFoms(data);
 		} catch (error) {
-			console.error("Error fetching FOMs:", error);
+			console.error("Error fetching foms:", error);
 			setError(error.message);
 		} finally {
 			setLoading(false);
@@ -29,8 +37,14 @@ function Foms() {
 		fetchFoms();
 	}, []);
 
-	const refreshFoms = () => {
-		fetchFoms();
+	const handleEdit = (fom) => {
+		setSelectedFom(fom);
+		setShowForm(true);
+	};
+
+	const handleCloseForm = () => {
+		setShowForm(false);
+		setSelectedFom(null);
 	};
 
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
@@ -38,9 +52,12 @@ function Foms() {
 
 	return (
 		<div style={{ color: "black" }}>
-			<h2>FOMs List</h2>
+			<h2>Foms List</h2>
 			<button
-				onClick={() => setShowForm(true)}
+				onClick={() => {
+					setShowForm(true);
+					setSelectedFom(null);
+				}}
 				style={{
 					padding: "8px 16px",
 					backgroundColor: "#4CAF50",
@@ -51,14 +68,21 @@ function Foms() {
 					marginBottom: "1rem",
 				}}
 			>
-				Create New FOM
+				Create New Fom
 			</button>
+
 			{showForm && (
 				<FomForm
-					onClose={() => setShowForm(false)}
-					onFomCreated={refreshFoms}
+					onClose={handleCloseForm}
+					onFomCreated={() => {
+						handleCloseForm();
+						fetchFoms();
+					}}
+					initialData={selectedFom}
+					isEditing={!!selectedFom}
 				/>
 			)}
+
 			<table
 				style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}
 			>
@@ -109,7 +133,10 @@ function Foms() {
 							<td style={{ padding: "12px" }}>{fom.city}</td>
 							<td style={{ padding: "12px" }}>{fom.state}</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
-								<FaEdit style={{ cursor: "pointer", marginRight: "10px" }} />
+								<FaEdit
+									style={{ cursor: "pointer", marginRight: "10px" }}
+									onClick={() => handleEdit(fom)}
+								/>
 								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
 						</tr>

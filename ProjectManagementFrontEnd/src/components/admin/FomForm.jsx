@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function FomForm({ onClose, onFomCreated }) {
+function FomForm({ onClose, onFomCreated, initialData, isEditing }) {
 	const [formData, setFormData] = useState({
+		id: "",
 		name: "",
 		address: "",
 		city: "",
@@ -12,6 +13,15 @@ function FomForm({ onClose, onFomCreated }) {
 		email: "",
 	});
 	const [error, setError] = useState("");
+
+	useEffect(() => {
+		if (initialData) {
+			setFormData({
+				...initialData,
+				id: initialData.id ? Number(initialData.id) : "",
+			});
+		}
+	}, [initialData]);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -25,49 +35,39 @@ function FomForm({ onClose, onFomCreated }) {
 		e.preventDefault();
 		setError("");
 		try {
-			// Remove id if present in formData
-			const { id, ...payload } = formData;
 			let response;
 			try {
 				response = await fetch("/api/foms", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(payload),
+					method: isEditing ? "PUT" : "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						...formData,
+						id: isEditing ? Number(formData.id) : undefined,
+					}),
 				});
 			} catch (networkError) {
-				try {
-					response = await fetch("http://localhost:8080/api/foms", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(payload),
-					});
-				} catch (networkError2) {
-					setError(
-						"Network error: Could not reach backend. Is it running and is CORS enabled?"
-					);
-					return;
-				}
+				response = await fetch("http://localhost:8080/api/foms", {
+					method: isEditing ? "PUT" : "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						...formData,
+						id: isEditing ? Number(formData.id) : undefined,
+					}),
+				});
 			}
-			let data = null;
-			try {
-				data = await response.json();
-			} catch {}
+
 			if (!response.ok) {
-				let msg = "Failed to create FOM";
-				if (data && data.message) msg = data.message;
-				setError(msg + (response.status ? ` (HTTP ${response.status})` : ""));
-				console.error("FOM creation failed:", response.status, data);
-				return;
+				const errorData = await response.json().catch(() => null);
+				throw new Error(
+					errorData?.message || `HTTP error! status: ${response.status}`
+				);
 			}
+
 			onFomCreated();
 			onClose();
 		} catch (err) {
-			setError(err.message || "Failed to create FOM");
-			console.error("Unexpected error:", err);
+			console.error("Error saving fom:", err);
+			setError("Failed to save fom. Please try again.");
 		}
 	};
 
@@ -98,7 +98,7 @@ function FomForm({ onClose, onFomCreated }) {
 				}}
 			>
 				<h3 style={{ marginBottom: "1.5rem", color: "#333" }}>
-					Create New FOM
+					{isEditing ? "Edit FOM" : "Create New FOM"}
 				</h3>
 				{error && (
 					<div
@@ -323,7 +323,7 @@ function FomForm({ onClose, onFomCreated }) {
 								cursor: "pointer",
 							}}
 						>
-							Create FOM
+							{isEditing ? "Update FOM" : "Create FOM"}
 						</button>
 					</div>
 				</form>
