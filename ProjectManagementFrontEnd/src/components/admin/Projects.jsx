@@ -9,23 +9,31 @@ function Projects() {
 	const [showForm, setShowForm] = useState(false);
 	const [selectedProject, setSelectedProject] = useState(null);
 
-	useEffect(() => {
-		const fetchProjects = async () => {
-			try {
-				const response = await fetch("/api/projects/list");
-				if (!response.ok)
-					throw new Error(`HTTP error! status: ${response.status}`);
-				const data = await response.json();
-				console.log("Received data:", data);
-				setProjects(data);
-			} catch (error) {
-				console.error("Error:", error);
-				setError(error.message);
-			} finally {
-				setLoading(false);
+	const fetchProjects = async () => {
+		setLoading(true);
+		setError(null);
+		try {
+			let response = await fetch("/api/projects/list");
+			if (!response.ok) {
+				try {
+					response = await fetch("http://localhost:8080/api/projects/list");
+					if (!response.ok)
+						throw new Error(`HTTP error! status: ${response.status}`);
+				} catch (networkError) {
+					throw new Error("Could not reach backend server");
+				}
 			}
-		};
+			const data = await response.json();
+			setProjects(data);
+		} catch (error) {
+			console.error("Error fetching projects:", error);
+			setError(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 
+	useEffect(() => {
 		fetchProjects();
 	}, []);
 
