@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
+function ImpEngineerForm({
+	onClose,
+	onEngineerCreated,
+	initialData,
+	isEditing,
+}) {
 	const [formData, setFormData] = useState({
+		id: "",
 		name: "",
 		address: "",
 		city: "",
@@ -12,6 +18,15 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 		email: "",
 	});
 	const [error, setError] = useState("");
+
+	useEffect(() => {
+		if (initialData) {
+			setFormData({
+				...initialData,
+				id: initialData.id ? Number(initialData.id) : "",
+			});
+		}
+	}, [initialData]);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -25,53 +40,39 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 		e.preventDefault();
 		setError("");
 		try {
-			// Remove id if present
-			const { id, ...payload } = formData;
 			let response;
 			try {
 				response = await fetch("/api/impEngineers", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(payload),
+					method: isEditing ? "PUT" : "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						...formData,
+						id: isEditing ? Number(formData.id) : undefined,
+					}),
 				});
 			} catch (networkError) {
-				try {
-					response = await fetch("http://localhost:8080/api/impEngineers", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(payload),
-					});
-				} catch (networkError2) {
-					setError(
-						"Network error: Could not reach backend. Is it running and is CORS enabled?"
-					);
-					return;
-				}
+				response = await fetch("http://localhost:8080/api/impEngineers", {
+					method: isEditing ? "PUT" : "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						...formData,
+						id: isEditing ? Number(formData.id) : undefined,
+					}),
+				});
 			}
-			let data = null;
-			try {
-				data = await response.json();
-			} catch {}
+
 			if (!response.ok) {
-				let msg = "Failed to create Implementation Engineer";
-				if (data && data.message) msg = data.message;
-				setError(msg + (response.status ? ` (HTTP ${response.status})` : ""));
-				console.error(
-					"Implementation Engineer creation failed:",
-					response.status,
-					data
+				const errorData = await response.json().catch(() => null);
+				throw new Error(
+					errorData?.message || `HTTP error! status: ${response.status}`
 				);
-				return;
 			}
-			onImpEngineerCreated();
+
+			onEngineerCreated();
 			onClose();
 		} catch (err) {
-			setError(err.message || "Failed to create Implementation Engineer");
-			console.error("Unexpected error:", err);
+			console.error("Error saving engineer:", err);
+			setError("Failed to save implementation engineer. Please try again.");
 		}
 	};
 
@@ -102,7 +103,9 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 				}}
 			>
 				<h3 style={{ marginBottom: "1.5rem", color: "#333" }}>
-					Create New Implementation Engineer
+					{isEditing
+						? "Edit Implementation Engineer"
+						: "Create New Implementation Engineer"}
 				</h3>
 				{error && (
 					<div
@@ -327,7 +330,9 @@ function ImpEngineerForm({ onClose, onImpEngineerCreated }) {
 								cursor: "pointer",
 							}}
 						>
-							Create Implementation Engineer
+							{isEditing
+								? "Update Implementation Engineer"
+								: "Create Implementation Engineer"}
 						</button>
 					</div>
 				</form>

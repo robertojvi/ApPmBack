@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from "react";
-import FiberCircuitForm from "./FiberCircuitForm";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import FiberCircuitForm from "./FiberCircuitForm";
 
 function FiberCircuits() {
-	const [fiberCircuits, setFiberCircuits] = useState([]);
+	const [circuits, setCircuits] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [showForm, setShowForm] = useState(false);
+	const [selectedCircuit, setSelectedCircuit] = useState(null);
 
-	const fetchFiberCircuits = async () => {
+	const fetchCircuits = async () => {
 		setLoading(true);
 		setError(null);
 		try {
-			const response = await fetch("/api/fiberCircuits/list");
-			if (!response.ok)
-				throw new Error(`HTTP error! status: ${response.status}`);
+			let response = await fetch("/api/fiberCircuits/list");
+			if (!response.ok) {
+				try {
+					response = await fetch(
+						"http://localhost:8080/api/fiberCircuits/list"
+					);
+					if (!response.ok)
+						throw new Error(`HTTP error! status: ${response.status}`);
+				} catch (networkError) {
+					throw new Error("Could not reach backend server");
+				}
+			}
 			const data = await response.json();
-			setFiberCircuits(data);
+			setCircuits(data);
 		} catch (error) {
-			console.error("Error fetching Fiber Circuits:", error);
+			console.error("Error fetching circuits:", error);
 			setError(error.message);
 		} finally {
 			setLoading(false);
@@ -26,11 +36,17 @@ function FiberCircuits() {
 	};
 
 	useEffect(() => {
-		fetchFiberCircuits();
+		fetchCircuits();
 	}, []);
 
-	const refreshFiberCircuits = () => {
-		fetchFiberCircuits();
+	const handleEdit = (circuit) => {
+		setSelectedCircuit(circuit);
+		setShowForm(true);
+	};
+
+	const handleCloseForm = () => {
+		setShowForm(false);
+		setSelectedCircuit(null);
 	};
 
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
@@ -40,7 +56,10 @@ function FiberCircuits() {
 		<div style={{ color: "black" }}>
 			<h2>Fiber Circuits List</h2>
 			<button
-				onClick={() => setShowForm(true)}
+				onClick={() => {
+					setShowForm(true);
+					setSelectedCircuit(null);
+				}}
 				style={{
 					padding: "8px 16px",
 					backgroundColor: "#4CAF50",
@@ -53,12 +72,19 @@ function FiberCircuits() {
 			>
 				Create New Fiber Circuit
 			</button>
+
 			{showForm && (
 				<FiberCircuitForm
-					onClose={() => setShowForm(false)}
-					onFiberCircuitCreated={refreshFiberCircuits}
+					onClose={handleCloseForm}
+					onCircuitCreated={() => {
+						handleCloseForm();
+						fetchCircuits();
+					}}
+					initialData={selectedCircuit}
+					isEditing={!!selectedCircuit}
 				/>
 			)}
+
 			<table
 				style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}
 			>
@@ -71,7 +97,7 @@ function FiberCircuits() {
 								borderBottom: "2px solid #ddd",
 							}}
 						>
-							Provider Name
+							Provider
 						</th>
 						<th
 							style={{
@@ -103,13 +129,16 @@ function FiberCircuits() {
 					</tr>
 				</thead>
 				<tbody>
-					{fiberCircuits.map((circuit) => (
+					{circuits.map((circuit) => (
 						<tr key={circuit.id} style={{ borderBottom: "1px solid #ddd" }}>
 							<td style={{ padding: "12px" }}>{circuit.providerName}</td>
 							<td style={{ padding: "12px" }}>{circuit.circuitId}</td>
 							<td style={{ padding: "12px" }}>{circuit.circuitStatus}</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
-								<FaEdit style={{ cursor: "pointer", marginRight: "10px" }} />
+								<FaEdit
+									style={{ cursor: "pointer", marginRight: "10px" }}
+									onClick={() => handleEdit(circuit)}
+								/>
 								<FaTrash style={{ cursor: "pointer" }} />
 							</td>
 						</tr>
