@@ -110,6 +110,26 @@ function Projects() {
 						<th
 							style={{
 								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+								color: "black",
+							}}
+						>
+							Contractor
+						</th>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "right",
+								borderBottom: "2px solid #ddd",
+								color: "black",
+							}}
+						>
+							% Complete
+						</th>
+						<th
+							style={{
+								padding: "12px",
 								textAlign: "center",
 								borderBottom: "2px solid #ddd",
 								color: "black",
@@ -127,6 +147,10 @@ function Projects() {
 						>
 							<td style={{ padding: "12px" }}>{project.name}</td>
 							<td style={{ padding: "12px" }}>{project.status}</td>
+							<td style={{ padding: "12px" }}>{project.contractor?.name}</td>
+							<td style={{ padding: "12px", textAlign: "right" }}>
+								{project.percentageComplete?.toFixed(2)}%
+							</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
 								<FaEdit
 									style={{ cursor: "pointer", marginRight: "10px" }}
