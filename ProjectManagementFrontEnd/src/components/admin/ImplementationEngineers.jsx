@@ -93,15 +93,7 @@ function ImplementationEngineers() {
 					setShowForm(true);
 					setSelectedEngineer(null);
 				}}
-				style={{
-					padding: "8px 16px",
-					backgroundColor: "#4CAF50",
-					color: "white",
-					border: "none",
-					borderRadius: "4px",
-					cursor: "pointer",
-					marginBottom: "1rem",
-				}}
+				className="action-button"
 			>
 				Create New Implementation Engineer
 			</button>

@@ -80,23 +80,15 @@ function Foms() {
 
 	return (
 		<div style={{ color: "black" }}>
-			<h2>Foms List</h2>
+			<h2>FOMs List</h2>
 			<button
 				onClick={() => {
 					setShowForm(true);
 					setSelectedFom(null);
 				}}
-				style={{
-					padding: "8px 16px",
-					backgroundColor: "#4CAF50",
-					color: "white",
-					border: "none",
-					borderRadius: "4px",
-					cursor: "pointer",
-					marginBottom: "1rem",
-				}}
+				className="action-button"
 			>
-				Create New Fom
+				Create New FOM
 			</button>
 
 			{showForm && (

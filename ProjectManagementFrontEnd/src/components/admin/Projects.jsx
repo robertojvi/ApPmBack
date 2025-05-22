@@ -83,19 +83,14 @@ function Projects() {
 	if (error) return <div>Error: {error}</div>;
 
 	return (
-		<div className="projects-container" style={{ color: "black" }}>
+		<div style={{ color: "black" }}>
 			<h2>Projects List</h2>
 			<button
-				onClick={() => setShowForm(true)}
-				style={{
-					padding: "8px 16px",
-					backgroundColor: "#4CAF50",
-					color: "white",
-					border: "none",
-					borderRadius: "4px",
-					cursor: "pointer",
-					marginBottom: "1rem",
+				onClick={() => {
+					setShowForm(true);
+					setSelectedProject(null);
 				}}
+				className="action-button"
 			>
 				Create New Project
 			</button>

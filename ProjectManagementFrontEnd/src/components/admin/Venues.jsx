@@ -85,18 +85,7 @@ function Venues() {
 	return (
 		<div style={{ color: "black" }}>
 			<h2>Venues List</h2>
-			<button
-				onClick={() => setShowForm(true)}
-				style={{
-					padding: "8px 16px",
-					backgroundColor: "#4CAF50",
-					color: "white",
-					border: "none",
-					borderRadius: "4px",
-					cursor: "pointer",
-					marginBottom: "1rem",
-				}}
-			>
+			<button onClick={() => setShowForm(true)} className="action-button">
 				Create New Venue
 			</button>
 			{showForm && (
