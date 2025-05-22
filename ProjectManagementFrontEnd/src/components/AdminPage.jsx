@@ -37,7 +37,7 @@ function AdminPage() {
 			className="admin-page"
 			style={{ display: "flex", width: "100vw", height: "100vh" }}
 		>
-			<nav className="admin-navbar" style={{ width: "30%", height: "100%" }}>
+			<nav className="admin-navbar" style={{ width: "20%", height: "100%" }}>
 				<ul>
 					<li
 						className={selectedComponent === "Projects" ? "active" : ""}
