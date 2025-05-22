@@ -63,12 +63,9 @@ function Venues() {
 					method: "DELETE",
 				});
 			} catch (networkError) {
-				response = await fetch(
-					`http://localhost:8080/api/venues/${venueId}`,
-					{
-						method: "DELETE",
-					}
-				);
+				response = await fetch(`http://localhost:8080/api/venues/${venueId}`, {
+					method: "DELETE",
+				});
 			}
 
 			if (!response.ok) {

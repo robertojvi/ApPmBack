@@ -51,9 +51,7 @@ function ProjectManagers() {
 
 	const handleDelete = async (managerId) => {
 		if (
-			!window.confirm(
-				"Are you sure you want to delete this project manager?"
-			)
+			!window.confirm("Are you sure you want to delete this project manager?")
 		) {
 			return;
 		}

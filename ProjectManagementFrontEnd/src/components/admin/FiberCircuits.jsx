@@ -49,6 +49,39 @@ function FiberCircuits() {
 		setSelectedCircuit(null);
 	};
 
+	const handleDelete = async (circuitId) => {
+		if (
+			!window.confirm("Are you sure you want to delete this fiber circuit?")
+		) {
+			return;
+		}
+
+		try {
+			let response;
+			try {
+				response = await fetch(`/api/fiberCircuits/${circuitId}`, {
+					method: "DELETE",
+				});
+			} catch (networkError) {
+				response = await fetch(
+					`http://localhost:8080/api/fiberCircuits/${circuitId}`,
+					{
+						method: "DELETE",
+					}
+				);
+			}
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			fetchCircuits();
+		} catch (error) {
+			console.error("Error deleting fiber circuit:", error);
+			setError("Failed to delete fiber circuit. Please try again.");
+		}
+	};
+
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
@@ -139,7 +172,10 @@ function FiberCircuits() {
 									style={{ cursor: "pointer", marginRight: "10px" }}
 									onClick={() => handleEdit(circuit)}
 								/>
-								<FaTrash style={{ cursor: "pointer" }} />
+								<FaTrash
+									style={{ cursor: "pointer" }}
+									onClick={() => handleDelete(circuit.id)}
+								/>
 							</td>
 						</tr>
 					))}
