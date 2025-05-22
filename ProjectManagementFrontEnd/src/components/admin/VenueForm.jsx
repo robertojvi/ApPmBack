@@ -548,7 +548,9 @@ function VenueForm({ onClose, onVenueCreated, initialData, isEditing }) {
 							}}
 						/>
 					</div>
-					<div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
+					<div
+						style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}
+					>
 						<button
 							type="button"
 							onClick={onClose}
@@ -556,10 +558,7 @@ function VenueForm({ onClose, onVenueCreated, initialData, isEditing }) {
 						>
 							Cancel
 						</button>
-						<button
-							type="submit"
-							className="action-button"
-						>
+						<button type="submit" className="action-button">
 							{isEditing ? "Update Venue" : "Create Venue"}
 						</button>
 					</div>
