@@ -51,6 +51,37 @@ function Venues() {
 		setSelectedVenue(null);
 	};
 
+	const handleDelete = async (venueId) => {
+		if (!window.confirm("Are you sure you want to delete this venue?")) {
+			return;
+		}
+
+		try {
+			let response;
+			try {
+				response = await fetch(`/api/venues/${venueId}`, {
+					method: "DELETE",
+				});
+			} catch (networkError) {
+				response = await fetch(
+					`http://localhost:8080/api/venues/${venueId}`,
+					{
+						method: "DELETE",
+					}
+				);
+			}
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			refreshVenues();
+		} catch (error) {
+			console.error("Error deleting venue:", error);
+			setError("Failed to delete venue. Please try again.");
+		}
+	};
+
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
@@ -136,7 +167,10 @@ function Venues() {
 									style={{ cursor: "pointer", marginRight: "10px" }}
 									onClick={() => handleEdit(venue)}
 								/>
-								<FaTrash style={{ cursor: "pointer" }} />
+								<FaTrash
+									style={{ cursor: "pointer" }}
+									onClick={() => handleDelete(venue.id)}
+								/>
 							</td>
 						</tr>
 					))}

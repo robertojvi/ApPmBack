@@ -49,6 +49,41 @@ function ProjectManagers() {
 		setSelectedProjectManager(null); // Fixed: was setSelectedContractor
 	};
 
+	const handleDelete = async (managerId) => {
+		if (
+			!window.confirm(
+				"Are you sure you want to delete this project manager?"
+			)
+		) {
+			return;
+		}
+
+		try {
+			let response;
+			try {
+				response = await fetch(`/api/projectManagers/${managerId}`, {
+					method: "DELETE",
+				});
+			} catch (networkError) {
+				response = await fetch(
+					`http://localhost:8080/api/projectManagers/${managerId}`,
+					{
+						method: "DELETE",
+					}
+				);
+			}
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			fetchProjectManagers();
+		} catch (error) {
+			console.error("Error deleting project manager:", error);
+			setError("Failed to delete project manager. Please try again.");
+		}
+	};
+
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
@@ -142,7 +177,10 @@ function ProjectManagers() {
 										style={{ cursor: "pointer", marginRight: "10px" }}
 										onClick={() => handleEdit(pm)}
 									/>
-									<FaTrash style={{ cursor: "pointer" }} />
+									<FaTrash
+										style={{ cursor: "pointer" }}
+										onClick={() => handleDelete(pm.id)}
+									/>
 								</td>
 							</tr>
 						)

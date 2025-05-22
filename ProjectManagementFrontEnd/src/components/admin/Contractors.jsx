@@ -44,6 +44,37 @@ function Contractors() {
 		setSelectedContractor(null);
 	};
 
+	const handleDelete = async (contractorId) => {
+		if (!window.confirm("Are you sure you want to delete this contractor?")) {
+			return;
+		}
+
+		try {
+			let response;
+			try {
+				response = await fetch(`/api/contractors/${contractorId}`, {
+					method: "DELETE",
+				});
+			} catch (networkError) {
+				response = await fetch(
+					`http://localhost:8080/api/contractors/${contractorId}`,
+					{
+						method: "DELETE",
+					}
+				);
+			}
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			fetchContractors();
+		} catch (error) {
+			console.error("Error deleting contractor:", error);
+			setError("Failed to delete contractor. Please try again.");
+		}
+	};
+
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
@@ -134,7 +165,10 @@ function Contractors() {
 									style={{ cursor: "pointer", marginRight: "10px" }}
 									onClick={() => handleEdit(contractor)}
 								/>
-								<FaTrash style={{ cursor: "pointer" }} />
+								<FaTrash
+									style={{ cursor: "pointer" }}
+									onClick={() => handleDelete(contractor.id)}
+								/>
 							</td>
 						</tr>
 					))}
