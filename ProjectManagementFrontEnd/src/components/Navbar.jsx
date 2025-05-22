@@ -4,6 +4,16 @@ import "./Navbar.css"; // Import the CSS file for styling
 function Navbar() {
 	return (
 		<nav className="navbar">
+			<div className="navbar-brand">
+				<img
+					src="/images/logo.png"
+					alt="Access Parks Logo"
+					style={{
+						height: "40px",
+						marginRight: "20px",
+					}}
+				/>
+			</div>
 			<ul className="navbar-links">
 				<li>
 					<Link to="/">Home Page</Link>
