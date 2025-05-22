@@ -308,31 +308,15 @@ function ImpEngineerForm({
 						<button
 							type="button"
 							onClick={onClose}
-							style={{
-								padding: "8px 16px",
-								backgroundColor: "#ccc",
-								color: "#333",
-								border: "none",
-								borderRadius: "4px",
-								cursor: "pointer",
-							}}
+							className="action-button secondary-button"
 						>
 							Cancel
 						</button>
 						<button
 							type="submit"
-							style={{
-								padding: "8px 16px",
-								backgroundColor: "#4CAF50",
-								color: "white",
-								border: "none",
-								borderRadius: "4px",
-								cursor: "pointer",
-							}}
+							className="action-button"
 						>
-							{isEditing
-								? "Update Implementation Engineer"
-								: "Create Implementation Engineer"}
+							{isEditing ? "Update Implementation Engineer" : "Create Implementation Engineer"}
 						</button>
 					</div>
 				</form>

@@ -314,9 +314,7 @@ function ImplementationEngineerForm({
 							}}
 						/>
 					</div>
-					<div
-						style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}
-					>
+					<div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
 						<button
 							type="button"
 							onClick={onClose}
@@ -324,10 +322,11 @@ function ImplementationEngineerForm({
 						>
 							Cancel
 						</button>
-						<button type="submit" className="action-button">
-							{isEditing
-								? "Update Implementation Engineer"
-								: "Create Implementation Engineer"}
+						<button
+							type="submit"
+							className="action-button"
+						>
+							{isEditing ? "Update Implementation Engineer" : "Create Implementation Engineer"}
 						</button>
 					</div>
 				</form>

@@ -548,39 +548,19 @@ function VenueForm({ onClose, onVenueCreated, initialData, isEditing }) {
 							}}
 						/>
 					</div>
-					<div
-						style={{
-							display: "flex",
-							gap: "10px",
-							justifyContent: "flex-end",
-						}}
-					>
+					<div style={{ display: "flex", gap: "10px", justifyContent: "flex-end" }}>
 						<button
 							type="button"
 							onClick={onClose}
-							style={{
-								padding: "8px 16px",
-								backgroundColor: "#ccc",
-								color: "#333",
-								border: "none",
-								borderRadius: "4px",
-								cursor: "pointer",
-							}}
+							className="action-button secondary-button"
 						>
 							Cancel
 						</button>
 						<button
 							type="submit"
-							style={{
-								padding: "8px 16px",
-								backgroundColor: "#4CAF50",
-								color: "white",
-								border: "none",
-								borderRadius: "4px",
-								cursor: "pointer",
-							}}
+							className="action-button"
 						>
-							{isEditing ? "Save Changes" : "Create Venue"}
+							{isEditing ? "Update Venue" : "Create Venue"}
 						</button>
 					</div>
 				</form>
