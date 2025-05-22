@@ -87,7 +87,17 @@ function ImplementationEngineers() {
 
 	return (
 		<div style={{ color: "black" }}>
-			<h2>Implementation Engineers List</h2>
+			<h2
+				style={{
+					textAlign: "center",
+					marginBottom: "2rem",
+					textTransform: "uppercase",
+					fontSize: "2rem",
+					fontWeight: "600",
+				}}
+			>
+				Implementation Engineers
+			</h2>
 			<button
 				onClick={() => {
 					setShowForm(true);

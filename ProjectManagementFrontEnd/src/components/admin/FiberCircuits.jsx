@@ -87,7 +87,17 @@ function FiberCircuits() {
 
 	return (
 		<div style={{ color: "black" }}>
-			<h2>Fiber Circuits List</h2>
+			<h2
+				style={{
+					textAlign: "center",
+					marginBottom: "2rem",
+					textTransform: "uppercase",
+					fontSize: "2rem",
+					fontWeight: "600",
+				}}
+			>
+				Fiber Circuits
+			</h2>
 			<button
 				onClick={() => {
 					setShowForm(true);

@@ -87,7 +87,17 @@ function ProjectManagers() {
 
 	return (
 		<div style={{ color: "black" }}>
-			<h2>Project Managers List</h2>
+			<h2
+				style={{
+					textAlign: "center",
+					marginBottom: "2rem",
+					textTransform: "uppercase",
+					fontSize: "2rem",
+					fontWeight: "600",
+				}}
+			>
+				Project Managers
+			</h2>
 			<button
 				onClick={() => {
 					setShowForm(true);

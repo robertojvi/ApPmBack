@@ -84,7 +84,17 @@ function Projects() {
 
 	return (
 		<div style={{ color: "black" }}>
-			<h2>Projects List</h2>
+			<h2
+				style={{
+					textAlign: "center",
+					marginBottom: "2rem",
+					textTransform: "uppercase",
+					fontSize: "2rem",
+					fontWeight: "600",
+				}}
+			>
+				Projects
+			</h2>
 			<button
 				onClick={() => {
 					setShowForm(true);
@@ -147,6 +157,16 @@ function Projects() {
 						<th
 							style={{
 								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+								color: "black",
+							}}
+						>
+							Fiber Circuit Provider
+						</th>
+						<th
+							style={{
+								padding: "12px",
 								textAlign: "right",
 								borderBottom: "2px solid #ddd",
 								color: "black",
@@ -175,6 +195,9 @@ function Projects() {
 							<td style={{ padding: "12px" }}>{project.name}</td>
 							<td style={{ padding: "12px" }}>{project.status}</td>
 							<td style={{ padding: "12px" }}>{project.contractor?.name}</td>
+							<td style={{ padding: "12px" }}>
+								{project.fiberCircuit?.providerName}
+							</td>
 							<td style={{ padding: "12px", textAlign: "right" }}>
 								{project.percentageComplete?.toFixed(2)}%
 							</td>

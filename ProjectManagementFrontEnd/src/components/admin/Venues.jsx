@@ -84,7 +84,17 @@ function Venues() {
 
 	return (
 		<div style={{ color: "black" }}>
-			<h2>Venues List</h2>
+			<h2
+				style={{
+					textAlign: "center",
+					marginBottom: "2rem",
+					textTransform: "uppercase",
+					fontSize: "2rem",
+					fontWeight: "600",
+				}}
+			>
+				Venues
+			</h2>
 			<button onClick={() => setShowForm(true)} className="action-button">
 				Create New Venue
 			</button>
@@ -134,6 +144,15 @@ function Venues() {
 						<th
 							style={{
 								padding: "12px",
+								textAlign: "right",
+								borderBottom: "2px solid #ddd",
+							}}
+						>
+							Number of Lots
+						</th>
+						<th
+							style={{
+								padding: "12px",
 								textAlign: "center",
 								borderBottom: "2px solid #ddd",
 							}}
@@ -148,6 +167,9 @@ function Venues() {
 							<td style={{ padding: "12px" }}>{venue.name}</td>
 							<td style={{ padding: "12px" }}>{venue.city}</td>
 							<td style={{ padding: "12px" }}>{venue.state}</td>
+							<td style={{ padding: "12px", textAlign: "right" }}>
+								{venue.numberOfLots || 0}
+							</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
 								<FaEdit
 									style={{ cursor: "pointer", marginRight: "10px" }}
