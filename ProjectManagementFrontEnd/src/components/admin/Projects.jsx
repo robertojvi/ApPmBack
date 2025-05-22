@@ -47,6 +47,38 @@ function Projects() {
 		setSelectedProject(null);
 	};
 
+	const handleDelete = async (projectId) => {
+		if (!window.confirm("Are you sure you want to delete this project?")) {
+			return;
+		}
+
+		try {
+			let response;
+			try {
+				response = await fetch(`/api/projects/${projectId}`, {
+					method: "DELETE",
+				});
+			} catch (networkError) {
+				response = await fetch(
+					`http://localhost:8080/api/projects/${projectId}`,
+					{
+						method: "DELETE",
+					}
+				);
+			}
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			// Refresh projects list after successful deletion
+			fetchProjects();
+		} catch (error) {
+			console.error("Error deleting project:", error);
+			setError("Failed to delete project. Please try again.");
+		}
+	};
+
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error: {error}</div>;
 
@@ -156,7 +188,10 @@ function Projects() {
 									style={{ cursor: "pointer", marginRight: "10px" }}
 									onClick={() => handleEdit(project)}
 								/>
-								<FaTrash style={{ cursor: "pointer" }} />
+								<FaTrash
+									style={{ cursor: "pointer" }}
+									onClick={() => handleDelete(project.id)}
+								/>
 							</td>
 						</tr>
 					))}
