@@ -27,14 +27,12 @@
 }
 
 .admin-navbar {
-    width: 40%;
-    background-color: #444;
-    /* Dark gray color */
-    color: white;
+    width: 70%;
+    background-color: #033244;
+    color: #f4b942;
     padding: 1rem;
     box-sizing: border-box;
     margin-top: 4rem;
-    /* Add top margin to avoid overlap with the top navbar */
 }
 
 .admin-navbar ul {
@@ -46,35 +44,38 @@
 .admin-navbar li {
     margin: 1rem 0;
     cursor: pointer;
-    padding: 0.5rem;
-}
-
-.admin-navbar li.active {
-    background-color: #666;
-    /* Highlight color for the selected link */
-    color: white;
-    font-weight: bold;
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    border-radius: 4px;
 }
 
 .admin-navbar li:hover {
-    text-decoration: underline;
+    background-color: rgba(244, 185, 66, 0.1);
+    color: white;
+    text-decoration: none;
+}
+
+.admin-navbar li.active {
+    background-color: #f4b942;
+    color: #033244;
+    font-weight: 600;
 }
 
 .admin-content {
-    width: 70%;
-    /* Ensure the content uses the remaining 70% of the admin page */
+    width: 88%;
+    /* Increased to complement navbar width */
     height: 100vh;
-    /* Match the height of the viewport */
     padding: 1rem;
     box-sizing: border-box;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    /* Stretch child elements to use full width */
     justify-content: center;
     overflow-x: hidden;
-    /* Prevent horizontal overflow */
 }
 
 .component-container {
