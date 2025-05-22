@@ -65,8 +65,7 @@
 }
 
 .admin-content {
-    width: 88%;
-    /* Increased to complement navbar width */
+    width: 92%;
     height: 100vh;
     padding: 1rem;
     box-sizing: border-box;
@@ -74,15 +73,21 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    justify-content: center;
+    justify-content: flex-start;
+    /* Changed from center to flex-start */
     overflow-x: hidden;
+    margin-top: 4rem;
+    /* Add top margin to account for navbar */
 }
 
 .component-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    /* Changed from center to flex-start */
+    justify-content: flex-start;
+    /* Changed from center to flex-start */
     width: 100%;
-    text-align: center;
+    text-align: left;
+    /* Changed from center to left */
 }
