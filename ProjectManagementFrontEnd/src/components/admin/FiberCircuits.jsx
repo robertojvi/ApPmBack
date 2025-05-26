@@ -8,6 +8,7 @@ function FiberCircuits() {
 	const [error, setError] = useState(null);
 	const [showForm, setShowForm] = useState(false);
 	const [selectedCircuit, setSelectedCircuit] = useState(null);
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
 	const fetchCircuits = async () => {
 		setLoading(true);
@@ -82,6 +83,21 @@ function FiberCircuits() {
 		}
 	};
 
+	const sortData = (key) => {
+		let direction = "asc";
+		if (sortConfig.key === key && sortConfig.direction === "asc") {
+			direction = "desc";
+		}
+		setSortConfig({ key, direction });
+
+		const sortedData = [...circuits].sort((a, b) => {
+			if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+			if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+			return 0;
+		});
+		setCircuits(sortedData);
+	};
+
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
@@ -130,27 +146,39 @@ function FiberCircuits() {
 								padding: "12px",
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("providerName")}
 						>
-							Provider
+							Provider Name{" "}
+							{sortConfig.key === "providerName" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
 								padding: "12px",
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("circuitId")}
 						>
-							Circuit ID
+							Circuit ID{" "}
+							{sortConfig.key === "circuitId" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
 								padding: "12px",
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("status")}
 						>
-							Status
+							Status{" "}
+							{sortConfig.key === "status" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{

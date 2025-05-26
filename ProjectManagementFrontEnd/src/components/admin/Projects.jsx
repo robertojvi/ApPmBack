@@ -8,6 +8,7 @@ function Projects() {
 	const [error, setError] = useState(null);
 	const [showForm, setShowForm] = useState(false);
 	const [selectedProject, setSelectedProject] = useState(null);
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
 	const fetchProjects = async () => {
 		setLoading(true);
@@ -79,6 +80,30 @@ function Projects() {
 		}
 	};
 
+	const sortData = (key) => {
+		let direction = "asc";
+		if (sortConfig.key === key && sortConfig.direction === "asc") {
+			direction = "desc";
+		}
+		setSortConfig({ key, direction });
+
+		const sortedData = [...projects].sort((a, b) => {
+			// Handle nested properties
+			if (key === "contractor" || key === "fiberCircuit") {
+				const aValue = a[key]?.name || a[key]?.providerName || "";
+				const bValue = b[key]?.name || b[key]?.providerName || "";
+				if (aValue < bValue) return direction === "asc" ? -1 : 1;
+				if (aValue > bValue) return direction === "asc" ? 1 : -1;
+				return 0;
+			}
+			// Handle regular properties
+			if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+			if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+			return 0;
+		});
+		setProjects(sortedData);
+	};
+
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error: {error}</div>;
 
@@ -130,9 +155,13 @@ function Projects() {
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
 								color: "black",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("name")}
 						>
-							Name
+							Name{" "}
+							{sortConfig.key === "name" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
@@ -140,9 +169,13 @@ function Projects() {
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
 								color: "black",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("status")}
 						>
-							Status
+							Status{" "}
+							{sortConfig.key === "status" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
@@ -150,9 +183,13 @@ function Projects() {
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
 								color: "black",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("contractor")}
 						>
-							Contractor
+							Contractor{" "}
+							{sortConfig.key === "contractor" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
@@ -160,9 +197,13 @@ function Projects() {
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
 								color: "black",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("fiberCircuit")}
 						>
-							Fiber Circuit Provider
+							Fiber Circuit Provider{" "}
+							{sortConfig.key === "fiberCircuit" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
@@ -170,9 +211,13 @@ function Projects() {
 								textAlign: "right",
 								borderBottom: "2px solid #ddd",
 								color: "black",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("percentageComplete")}
 						>
-							% Complete
+							% Complete{" "}
+							{sortConfig.key === "percentageComplete" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{

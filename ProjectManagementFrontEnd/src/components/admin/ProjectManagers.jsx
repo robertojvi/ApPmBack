@@ -8,6 +8,7 @@ function ProjectManagers() {
 	const [error, setError] = useState(null);
 	const [showForm, setShowForm] = useState(false);
 	const [selectedProjectManager, setSelectedProjectManager] = useState(null);
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
 	const fetchProjectManagers = async () => {
 		setLoading(true);
@@ -82,6 +83,21 @@ function ProjectManagers() {
 		}
 	};
 
+	const sortData = (key) => {
+		let direction = "asc";
+		if (sortConfig.key === key && sortConfig.direction === "asc") {
+			direction = "desc";
+		}
+		setSortConfig({ key, direction });
+
+		const sortedData = [...projectManagers].sort((a, b) => {
+			if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+			if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+			return 0;
+		});
+		setProjectManagers(sortedData);
+	};
+
 	if (loading) return <div style={{ color: "black" }}>Loading...</div>;
 	if (error) return <div style={{ color: "black" }}>Error: {error}</div>;
 
@@ -130,27 +146,39 @@ function ProjectManagers() {
 								padding: "12px",
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("name")}
 						>
-							Name
+							Name{" "}
+							{sortConfig.key === "name" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
 								padding: "12px",
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("city")}
 						>
-							City
+							City{" "}
+							{sortConfig.key === "city" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
 								padding: "12px",
 								textAlign: "left",
 								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
 							}}
+							onClick={() => sortData("state")}
 						>
-							State
+							State{" "}
+							{sortConfig.key === "state" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
 						<th
 							style={{
