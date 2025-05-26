@@ -185,6 +185,45 @@ function Venues() {
 						<th
 							style={{
 								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
+							}}
+							onClick={() => sortData("contactPerson")}
+						>
+							Contact Person{" "}
+							{sortConfig.key === "contactPerson" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
+						</th>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
+							}}
+							onClick={() => sortData("email")}
+						>
+							Email{" "}
+							{sortConfig.key === "email" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
+						</th>
+						<th
+							style={{
+								padding: "12px",
+								textAlign: "left",
+								borderBottom: "2px solid #ddd",
+								cursor: "pointer",
+							}}
+							onClick={() => sortData("phoneNumber")}
+						>
+							Phone Number{" "}
+							{sortConfig.key === "phoneNumber" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
+						</th>
+						<th
+							style={{
+								padding: "12px",
 								textAlign: "center",
 								borderBottom: "2px solid #ddd",
 							}}
@@ -202,6 +241,9 @@ function Venues() {
 							<td style={{ padding: "12px", textAlign: "right" }}>
 								{venue.numberOfLots || 0}
 							</td>
+							<td style={{ padding: "12px" }}>{venue.contactPerson || "-"}</td>
+							<td style={{ padding: "12px" }}>{venue.email || "-"}</td>
+							<td style={{ padding: "12px" }}>{venue.phoneNumber || "-"}</td>
 							<td style={{ padding: "12px", textAlign: "center" }}>
 								<FaEdit
 									style={{ cursor: "pointer", marginRight: "10px" }}
