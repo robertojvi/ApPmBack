@@ -475,7 +475,7 @@ function ProjectForm({ onClose, onProjectCreated, initialData, isEditing }) {
 							<option value="">Select Fiber Circuit</option>
 							{fiberCircuits.map((fc) => (
 								<option key={fc.id} value={fc.id}>
-									{fc.circuitId}
+									{fc.providerName}
 								</option>
 							))}
 						</select>
