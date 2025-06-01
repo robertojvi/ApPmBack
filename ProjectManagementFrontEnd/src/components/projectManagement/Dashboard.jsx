@@ -30,7 +30,7 @@ function Dashboard() {
 
 	return (
 		<div className="dashboard-container">
-			<h2>Project Dashboard</h2>
+			<h2>AccessParks Projects</h2>
 			<div className="dashboard-content">
 				<div className="stats-container">
 					<div className="stats-card">
