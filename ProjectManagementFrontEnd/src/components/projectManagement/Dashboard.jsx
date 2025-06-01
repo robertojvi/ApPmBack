@@ -33,9 +33,8 @@ function Dashboard() {
 			<h2>Project Dashboard</h2>
 			<div className="dashboard-content">
 				<div className="stats-container">
-					<h3>Project Statistics</h3>
 					<div className="stats-card">
-						<h3>Total Projects</h3>
+						<h4>Total Projects</h4>
 						<div className="stats-number">{projects.length}</div>
 					</div>
 				</div>
@@ -45,14 +44,18 @@ function Dashboard() {
 					<div className="projects-list">
 						<div className="project-item header">
 							<span className="project-name">Project Name</span>
+							<span className="completed-percentage">Progress</span>
 							<span className="project-status">Status</span>
 							<span className="project-provider">Provider</span>
 							<span className="circuit-status">Circuit Status</span>
-							<span className="completed-percentage">Progress</span>
+							<span className="contractor-name">Contractor</span>
 						</div>
 						{projects.map((project) => (
 							<div key={project.id} className="project-item">
 								<span className="project-name">{project.name}</span>
+								<span className="completed-percentage">
+									{project.percentageComplete}%
+								</span>
 								<span className="project-status">{project.status}</span>
 								<span className="project-provider">
 									{project.fiberCircuit?.providerName}
@@ -60,8 +63,8 @@ function Dashboard() {
 								<span className="circuit-status">
 									{project.fiberCircuit?.circuitStatus}
 								</span>
-								<span className="completed-percentage">
-									{project.percentageComplete}%
+								<span className="contractor-name">
+									{project.contractor?.name}
 								</span>
 							</div>
 						))}

@@ -29,7 +29,7 @@
 }
 
 .project-navbar {
-    width: 25%;
+    width: 20%;
     background-color: #033244;
     color: #f4b942;
     padding: 1rem;
@@ -87,16 +87,39 @@
 }
 
 .dashboard-container {
-    padding: 0;
+    padding: 0rem;
     width: 100%;
+    margin-top: 1px;
+    color: rgba(244, 185, 66, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-content {
+    width: 90%;
+    max-width: 1200px;
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.dashboard-container h2,
+.dashboard-container h3:not(.projects-list-container h3) {
+    color: #033244;
+    margin: 0 0 1rem 0;
 }
 
 .stats-card {
     background-color: #033244;
     color: #f4b942;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -104,7 +127,8 @@
 .stats-number {
     font-size: 48px;
     font-weight: bold;
-    margin: 10px 0;
+    margin: 2px 0;
+    color: #f4b942
 }
 
 .projects-list-container {
@@ -113,6 +137,8 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 0 auto;
 }
 
 .projects-list-container h3 {
@@ -124,7 +150,7 @@
     border-bottom: 1px solid rgba(244, 185, 66, 0.3);
     transition: background-color 0.2s;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
     gap: 1rem;
     align-items: center;
 }
@@ -168,4 +194,9 @@
 
 .project-item:last-child {
     border-bottom: none;
+}
+
+.contractor-name {
+    text-align: center;
+    color: rgba(244, 185, 66, 0.8);
 }
