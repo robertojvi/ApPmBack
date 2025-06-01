@@ -2,11 +2,9 @@ import React from "react";
 
 function CompletedProjects() {
 	return (
-		<div>
+		<div className="completed-projects-container">
 			<h2>Completed Projects</h2>
-			<div className="projects-list">
-				{/* Add completed projects list here */}
-			</div>
+			{/* Add content here */}
 		</div>
 	);
 }

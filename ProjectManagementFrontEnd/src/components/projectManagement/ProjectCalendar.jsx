@@ -2,11 +2,9 @@ import React from "react";
 
 function ProjectCalendar() {
 	return (
-		<div>
+		<div className="project-calendar-container">
 			<h2>Project Calendar</h2>
-			<div className="calendar-container">
-				{/* Add calendar component here */}
-			</div>
+			{/* Add content here */}
 		</div>
 	);
 }

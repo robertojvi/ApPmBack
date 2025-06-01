@@ -2,9 +2,9 @@ import React from "react";
 
 function Reports() {
 	return (
-		<div>
-			<h2>Project Reports</h2>
-			<div className="reports-container">{/* Add reports content here */}</div>
+		<div className="reports-container">
+			<h2>Reports</h2>
+			{/* Add content here */}
 		</div>
 	);
 }
