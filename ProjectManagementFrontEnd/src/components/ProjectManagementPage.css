@@ -250,3 +250,51 @@
 .other-project-item:last-child {
     border-bottom: none;
 }
+
+.completed-projects-container {
+    padding: 2rem;
+    width: 100%;
+    color: #033244;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-section {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.live-projects-table-container {
+    margin-top: 2rem;
+    width: 90%;
+    overflow-x: auto;
+}
+
+.live-projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: #033244;
+    color: #f4b942;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.live-projects-table th,
+.live-projects-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(244, 185, 66, 0.3);
+}
+
+.live-projects-table th {
+    background-color: rgba(244, 185, 66, 0.1);
+    font-weight: bold;
+}
+
+.live-projects-table tbody tr:hover {
+    background-color: rgba(244, 185, 66, 0.1);
+}
