@@ -19,3 +19,67 @@
         width: 100vw;
     }
 }
+
+.project-management-page {
+    display: flex;
+    height: 100vh;
+    background-color: lightgray;
+}
+
+.project-navbar {
+    width: 70%;
+    background-color: #033244;
+    color: #f4b942;
+    padding: 1rem;
+    box-sizing: border-box;
+    margin-top: 4rem;
+}
+
+.project-navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.project-navbar li {
+    margin: 1rem 0;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.project-navbar li:hover {
+    background-color: rgba(244, 185, 66, 0.1);
+    color: white;
+    text-decoration: none;
+}
+
+.project-navbar li.active {
+    background-color: #f4b942;
+    color: #033244;
+    font-weight: 600;
+}
+
+.project-content {
+    width: 92%;
+    padding: 2rem;
+    margin-top: 4rem;
+    background-color: white;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+/* Add new styles for component containers */
+.dashboard-content,
+.projects-list,
+.calendar-container,
+.reports-container {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
