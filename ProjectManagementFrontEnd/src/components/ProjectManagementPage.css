@@ -106,18 +106,20 @@
 }
 
 .projects-list-container {
-    width: 100%;
     background-color: #033244;
     color: #f4b942;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex-grow: 1;
+}
+
+.projects-list-container h3 {
+    color: #f4b942;
 }
 
 .project-item {
     padding: 12px;
-    border-bottom: 1px solid #f4b942;
+    border-bottom: 1px solid rgba(244, 185, 66, 0.3);
     transition: background-color 0.2s;
 }
 
