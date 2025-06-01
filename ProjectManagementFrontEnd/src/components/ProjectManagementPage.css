@@ -21,13 +21,14 @@
 }
 
 .project-management-page {
+    width : 100vw;
     display: flex;
-    height: 100vh;
+
     background-color: lightgray;
 }
 
 .project-navbar {
-    width: 70%;
+    width: 25%;
     background-color: #033244;
     color: #f4b942;
     padding: 1rem;
@@ -65,7 +66,7 @@
 }
 
 .project-content {
-    width: 92%;
+    width: 100%;
     padding: 2rem;
     margin-top: 4rem;
     background-color: white;
