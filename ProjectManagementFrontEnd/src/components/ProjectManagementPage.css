@@ -83,3 +83,48 @@
     padding: 1rem;
     box-sizing: border-box;
 }
+
+.dashboard-container {
+    padding: 20px;
+    width: 100%;
+}
+
+.stats-card {
+    background-color: #033244;
+    color: #f4b942;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats-number {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.projects-list-container {
+    width: 100%;
+    background-color: #033244;
+    color: #f4b942;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+}
+
+.project-item {
+    padding: 12px;
+    border-bottom: 1px solid #f4b942;
+    transition: background-color 0.2s;
+}
+
+.project-item:hover {
+    background-color: rgba(244, 185, 66, 0.1);
+}
+
+.project-item:last-child {
+    border-bottom: none;
+}
