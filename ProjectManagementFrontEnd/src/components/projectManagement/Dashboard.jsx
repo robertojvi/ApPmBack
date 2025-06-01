@@ -43,9 +43,26 @@ function Dashboard() {
 				<div className="projects-list-container">
 					<h3>All Projects</h3>
 					<div className="projects-list">
+						<div className="project-item header">
+							<span className="project-name">Project Name</span>
+							<span className="project-status">Status</span>
+							<span className="project-provider">Provider</span>
+							<span className="circuit-status">Circuit Status</span>
+							<span className="completed-percentage">Progress</span>
+						</div>
 						{projects.map((project) => (
 							<div key={project.id} className="project-item">
-								{project.name}
+								<span className="project-name">{project.name}</span>
+								<span className="project-status">{project.status}</span>
+								<span className="project-provider">
+									{project.fiberCircuit?.providerName}
+								</span>
+								<span className="circuit-status">
+									{project.fiberCircuit?.circuitStatus}
+								</span>
+								<span className="completed-percentage">
+									{project.percentageComplete}%
+								</span>
 							</div>
 						))}
 					</div>

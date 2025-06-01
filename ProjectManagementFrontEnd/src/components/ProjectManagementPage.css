@@ -21,7 +21,7 @@
 }
 
 .project-management-page {
-    width : 100vw;
+    width: 100vw;
     display: flex;
 
     background-color: lightgray;
@@ -122,6 +122,43 @@
     padding: 12px;
     border-bottom: 1px solid rgba(244, 185, 66, 0.3);
     transition: background-color 0.2s;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.project-item.header {
+    font-weight: bold;
+    border-bottom: 2px solid #f4b942;
+    background-color: rgba(244, 185, 66, 0.1);
+}
+
+.project-item.header:hover {
+    background-color: rgba(244, 185, 66, 0.1);
+}
+
+.project-name {
+    text-align: left;
+}
+
+.project-provider {
+    margin: 0 1rem;
+    color: #f4b942;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.project-status {
+    text-align: center;
+    font-style: italic;
+    color: rgba(244, 185, 66, 0.8);
+}
+
+.circuit-status {
+    text-align: center;
+    font-style: italic;
+    color: rgba(244, 185, 66, 0.8);
 }
 
 .project-item:hover {
