@@ -220,9 +220,25 @@
     height: 400px;
 }
 
+.chart-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.projects-lists {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
 .live-projects-list,
 .other-projects-list {
-    min-width: 300px;
+    flex: 1;
+    max-width: 400px;
     background-color: #033244;
     padding: 1.5rem;
     border-radius: 8px;
@@ -310,4 +326,62 @@
 
 .live-projects-table td {
     font-size: 0.9rem;
+}
+
+.chart-with-lists {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding: 2rem;
+}
+
+.chart-section {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+    margin: 0 2rem;
+}
+
+.chart-container {
+    position: relative;
+}
+
+.connector-left,
+.connector-right {
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 2px;
+    background-color: rgba(3, 50, 68, 0.3);
+}
+
+.connector-left {
+    left: -100px;
+    transform: translateY(-50%);
+}
+
+.connector-right {
+    right: -100px;
+    transform: translateY(-50%);
+}
+
+.connector-left::after,
+.connector-right::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #033244;
+    transform: translateY(-50%);
+}
+
+.connector-left::after {
+    right: 0;
+}
+
+.connector-right::after {
+    left: 0;
 }
