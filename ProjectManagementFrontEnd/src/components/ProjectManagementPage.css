@@ -269,18 +269,18 @@
 
 .live-projects-table-container {
     margin-top: 2rem;
-    width: 90%;
+    width: 100%;
     overflow-x: auto;
 }
 
 .live-projects-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
     background-color: #033244;
     color: #f4b942;
     border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .live-projects-table th,
@@ -293,8 +293,15 @@
 .live-projects-table th {
     background-color: rgba(244, 185, 66, 0.1);
     font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
 }
 
 .live-projects-table tbody tr:hover {
     background-color: rgba(244, 185, 66, 0.1);
+    cursor: pointer;
+}
+
+.live-projects-table td {
+    font-size: 0.9rem;
 }
