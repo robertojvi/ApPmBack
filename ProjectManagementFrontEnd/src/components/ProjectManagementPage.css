@@ -268,13 +268,19 @@
 }
 
 .live-projects-table-container {
-    margin-top: 2rem;
-    width: 100%;
+    width: 90%;
+    margin: 2rem auto;
     overflow-x: auto;
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
 }
 
 .live-projects-table {
+    min-width: 1200px;
     width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
     border-collapse: collapse;
     background-color: #033244;
     color: #f4b942;
