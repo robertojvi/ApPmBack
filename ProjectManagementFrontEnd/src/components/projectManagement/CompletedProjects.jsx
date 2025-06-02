@@ -36,15 +36,15 @@ function CompletedProjects() {
 	const otherProjects = projects.filter((project) => project.status !== "Live");
 
 	const chartData = {
-		labels: ["Live Projects", "Other Projects"],
+		labels: [...liveProjects.map((project) => project.name), "Other Projects"],
 		datasets: [
 			{
-				data: [liveProjects.length, otherProjects.length],
+				data: [...liveProjects.map(() => 1), otherProjects.length],
 				backgroundColor: [
-					"#f4b942", // Gold color for Live Projects
-					"rgba(3, 50, 68, 0.8)", // Navy blue for Other Projects
+					...liveProjects.map(() => "#f4b942"),
+					"rgba(3, 50, 68, 0.8)",
 				],
-				borderColor: ["#f4b942", "#033244"],
+				borderColor: [...liveProjects.map(() => "#f4b942"), "#033244"],
 				borderWidth: 1,
 			},
 		],
@@ -54,15 +54,22 @@ function CompletedProjects() {
 		responsive: true,
 		plugins: {
 			legend: {
-				position: "top",
+				position: "right",
 				labels: {
 					color: "#033244",
 				},
 			},
 			title: {
 				display: true,
-				text: `Live Projects: ${liveProjects.length}`,
+				text: "Project Status Distribution",
 				color: "#033244",
+			},
+			tooltip: {
+				callbacks: {
+					label: function (context) {
+						return context.label;
+					},
+				},
 			},
 		},
 	};
